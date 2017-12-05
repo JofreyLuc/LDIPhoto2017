@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
@@ -18,6 +19,7 @@ public class Page_Pane extends VBox {
 	// Champs des events handlers, a deplacer pour plus de rigueur éventuellement (si on veut vraiment respecter mvc a la lettre)
 	double ori_x, ori_y, orgTranslateX, orgTranslateY;
 	ImageModifier imageModifier;
+	Pane panneau;
 	
 	public Page_Pane(double x, double y, ImageModifier imagemod)
 	{
@@ -25,13 +27,15 @@ public class Page_Pane extends VBox {
 		this.setMinSize(x, y);
 		this.setBackground(new Background(new BackgroundFill(Color.WHITE,CornerRadii.EMPTY, Insets.EMPTY)));
 		imageModifier = imagemod;
+		this.panneau = new Pane();
+		this.getChildren().add(panneau);
 	}
 	
 	public void addImage(String uri)
 	{
 		Image img = new Image(uri);
 		ImageView iv = new ImageView(img);
-		this.getChildren().add(iv);
+		this.panneau.getChildren().add(iv);
 		
 		// Ajout du contrôle de l'image via les MouseEvent
 		iv.setOnMouseDragged(mydragevent);

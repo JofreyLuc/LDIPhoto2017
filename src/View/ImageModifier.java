@@ -2,6 +2,7 @@ package View;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Point2D;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -52,8 +53,9 @@ public class ImageModifier extends Accordion {
 	
 	public void refresh()
 	{
-		field_abs.setText(String.valueOf(image_modified.localToScene(image_modified.getBoundsInParent()).getMinX()));
-		field_ord.setText(String.valueOf(image_modified.localToScene(image_modified.getBoundsInParent()).getMinY()));
+		//field_abs.setText(String.valueOf(image_modified.localToScene(image_modified.getBoundsInParent()).getMinX()));
+		field_abs.setText(String.valueOf(image_modified.localToParent(new Point2D(image_modified.getX(), image_modified.getY())).getX()));
+		field_ord.setText(String.valueOf(image_modified.localToParent(new Point2D(image_modified.getX(), image_modified.getY())).getY()));
 	}
 
 }
