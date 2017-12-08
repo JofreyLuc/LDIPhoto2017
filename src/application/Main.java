@@ -4,6 +4,7 @@ import java.io.File;
 
 import View.BottomBar;
 import View.ImageModifier;
+import View.ImageViewer;
 import View.Page_Pane;
 import javafx.application.Application;
 import javafx.geometry.Pos;
@@ -40,37 +41,39 @@ public class Main extends Application {
 			menuBar.getMenus().addAll(menuFile, menuAlbum);
 
 			root.setTop(menuBar);
-			
+
 			/* TODO : Liens avec le modele dans tous les éléments graphiques */
-			
+
 			/* Ajout du menu de côté permettant la modification d'une image */
 			ImageModifier modifier = new ImageModifier();
 			root.setLeft(modifier);
-			
+
 			/* Ajout de la zone d'image */
 			Page_Pane sizedPane = new Page_Pane(400,650, modifier); // 400;650, dimension à voir lors de la création de l'album, ici pour l'exemple
 			root.setCenter(sizedPane);
-			
+
 			/* Ajout des boutons sous l'image */
 			BottomBar bar = new BottomBar();
 			root.setBottom(bar);
 			bar.setAlignment(Pos.TOP_CENTER);
-			
-			
-			
+
 			/* Ajout d'une image pour test */
 			// Pour le moment, une image peut "sortir" de leur cadre reservé, je sais pas encore comment fair epour que non, assez confu pour le moment mais je trouverai ca demain :)
-			
+
 			sizedPane.addImage(new File("./resources/img.jpg").toURI().toString());
 
-			
+			/* Ajout du visionneur d'images à droite de la page */
+			ImageViewer iv = new ImageViewer();
+			root.setRight(iv);
+
+
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			/* Lance l'appli en fullscreen non redimensionnable*/
 			primaryStage.setMaximized(true);
 			primaryStage.setResizable(false);
 			primaryStage.show();
-			
+
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
