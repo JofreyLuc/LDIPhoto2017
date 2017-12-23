@@ -1,14 +1,24 @@
 package Model;
 
-import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Album {
-	
-	private ArrayList<Page> pages;
-	
+
+	private ObservableList<Page> pages;
+
 	public Album()
 	{
-		pages = new ArrayList<>();
+		pages = FXCollections.observableArrayList();
 	}
 
+	public void newPage(){
+		pages.add(new Page(pages.size()));
+	}
+
+	public void removePage(int indexToRemove){
+		/**
+		 * TODO
+		 */
+	}
 }

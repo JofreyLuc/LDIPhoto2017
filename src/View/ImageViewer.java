@@ -8,7 +8,9 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderImage;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 
 public class ImageViewer extends TabPane{
 
@@ -97,6 +99,9 @@ public class ImageViewer extends TabPane{
 		GridPane.setMargin(iv14, new Insets(15));
 		gp.add(iv15, 0, 7);
 		GridPane.setMargin(iv15, new Insets(15));
+
+
+
 		/* TEMP */
 
 
@@ -109,7 +114,7 @@ public class ImageViewer extends TabPane{
 		return t;
 	}
 
-	/* Redimensionne une imageView à la taille macimale autorisee des thumbnails */
+	/* Redimensionne une imageView à la taille maximale autorisee des thumbnails */
 	/* A bouger ? */
 	private void resizeToThumbnail(ImageView iv){
 		double width = iv.getImage().getWidth(), height = iv.getImage().getHeight();
