@@ -57,9 +57,23 @@ public class DataViewerController {
 		for (Picture p : pictures) {
 			ImageView newPic = new ImageView(p.getImage());
 			newPic.setFocusTraversable(true);
+
+
+			//TODO : Bouger ça dans une classe, ajouter le trigger du bouton d'ajout à la page
 			newPic.setOnMouseClicked((event) -> {
 				newPic.requestFocus();
 			});
+			newPic.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+			    if (newValue) {
+			    	newPic.setOpacity(.5);
+			    	newPic.setRotate(25);
+			    }
+			    else {
+			    	newPic.setOpacity(1);
+			    	newPic.setRotate(0);
+			    }
+			});
+
 
 			this.resizeToThumbnail(newPic);
 			fp.getChildren().add(newPic);
