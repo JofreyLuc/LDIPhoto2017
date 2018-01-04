@@ -2,9 +2,12 @@ package controler;
 
 import java.io.File;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.SnapshotParameters;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
@@ -27,6 +30,8 @@ public class DataViewerController {
 	 */
 	/* A BOUGER ? */
 	private final static int PICTURE_SIZE = 100;
+
+	private Button addPictureToPage;
 
 	public DataViewerController() {
 
@@ -51,6 +56,11 @@ public class DataViewerController {
 	public void addPicturesToViewer(FlowPane fp, Picture... pictures){
 		for (Picture p : pictures) {
 			ImageView newPic = new ImageView(p.getImage());
+			newPic.setFocusTraversable(true);
+			newPic.setOnMouseClicked((event) -> {
+				newPic.requestFocus();
+			});
+
 			this.resizeToThumbnail(newPic);
 			fp.getChildren().add(newPic);
 		}
@@ -90,6 +100,6 @@ public class DataViewerController {
 			fp.getChildren().add(pagePreview);
 		}
 	}
-	
-	
+
+
 }

@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
@@ -36,6 +37,9 @@ public class WindowControler {
 
 	@FXML
 	private MenuItem menuAjoutImages;
+
+	@FXML
+	private Button boutonAjoutImagePage;
 
 	private AlbumControler albumc;
 	private DataViewerController datac;
@@ -93,6 +97,10 @@ public class WindowControler {
 		menuAjoutImages.setOnAction((event) -> {
 			importPictures();
 		});
+
+		boutonAjoutImagePage.setOnAction((event) -> {
+			//addPictureToPage();
+		});
 	}
 
 	private void importPictures(){
@@ -110,7 +118,7 @@ public class WindowControler {
 	public void setCurrentImage(ImageView source) {
 		albumc.setCurrentImage(source);
 		// Il faudra aussi changer toutes les prop du pane de gauche en conséquence
-		
+
 	}
 
 	public double getPaneWidth() {

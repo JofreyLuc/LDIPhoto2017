@@ -100,7 +100,7 @@
                               </ScrollPane>
                               <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="250.0">
                                  <children>
-                                    <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Ajouter à la page" />
+                                    <Button fx:id="boutonAjoutImagePage" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Ajouter à la page" />
                                  </children>
                               </VBox>
                           </items>
