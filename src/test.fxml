@@ -7,14 +7,15 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
@@ -85,17 +86,25 @@
             </Accordion>
          </left>
          <right>
-            <TabPane maxWidth="200.0" minWidth="200.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+            <TabPane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
               <tabs>
-                <Tab text="Images">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
+                <Tab closable="false" text="Images">
+                     <content>
+                        <ScrollPane fitToHeight="true" fitToWidth="true" vbarPolicy="ALWAYS">
+                           <content>
+                              <FlowPane fx:id="flowPaneImages" columnHalignment="CENTER" hgap="10.0" prefHeight="250.0" prefWidth="250.0" vgap="10.0" />
+                           </content>
+                        </ScrollPane>
+                     </content>
                 </Tab>
-                <Tab text="Pages">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
+                <Tab closable="false" text="Pages">
+                     <content>
+                        <ScrollPane vbarPolicy="ALWAYS">
+                           <content>
+                              <FlowPane fx:id="flowPanePages" columnHalignment="CENTER" hgap="10.0" prefHeight="250.0" prefWidth="250.0" vgap="10.0" />
+                           </content>
+                        </ScrollPane>
+                     </content>
                 </Tab>
               </tabs>
             </TabPane>
@@ -114,16 +123,16 @@
             <menus>
               <Menu mnemonicParsing="false" text="Fichier">
                 <items>
-                  <MenuItem mnemonicParsing="false" text="Nouvel album" />
+                  <MenuItem fx:id="menuNouvelAlbum" mnemonicParsing="false" text="Nouvel album" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Quitter" />
+                  <MenuItem fx:id="menuQuitter" mnemonicParsing="false" text="Quitter" />
                 </items>
               </Menu>
               <Menu mnemonicParsing="false" text="Album">
                 <items>
-                  <MenuItem mnemonicParsing="false" text="Nouvelle page" />
+                  <MenuItem fx:id="menuNouvellePage" mnemonicParsing="false" text="Nouvelle page" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Ajouter image" />
+                  <MenuItem fx:id="menuAjoutImages" mnemonicParsing="false" text="Ajouter images..." />
                 </items>
               </Menu>
             </menus>

@@ -1,6 +1,7 @@
 package application;
-	
+
 import controler.AlbumControler;
+import controler.DataViewerController;
 import controler.WindowControler;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -14,9 +15,10 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			AlbumControler albumc = new AlbumControler();
-			
+			DataViewerController datac = new DataViewerController();
+
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/test.fxml"));
-			loader.setController(new WindowControler(albumc));
+			loader.setController(new WindowControler(albumc, datac));
 			VBox root = loader.load();
 			Scene scene = new Scene(root,1024,768);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
@@ -27,7 +29,7 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		launch(args);
 	}
