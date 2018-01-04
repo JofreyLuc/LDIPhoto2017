@@ -10,6 +10,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
@@ -90,11 +91,20 @@
               <tabs>
                 <Tab closable="false" text="Images">
                      <content>
-                        <ScrollPane fitToHeight="true" fitToWidth="true" vbarPolicy="ALWAYS">
-                           <content>
-                              <FlowPane fx:id="flowPaneImages" columnHalignment="CENTER" hgap="10.0" prefHeight="250.0" prefWidth="250.0" vgap="10.0" />
-                           </content>
-                        </ScrollPane>
+                        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+                          <items>
+                              <ScrollPane fitToHeight="true" fitToWidth="true" vbarPolicy="ALWAYS">
+                                 <content>
+                                    <FlowPane fx:id="flowPaneImages" columnHalignment="CENTER" hgap="10.0" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: white;" vgap="10.0" />
+                                 </content>
+                              </ScrollPane>
+                              <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="250.0">
+                                 <children>
+                                    <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Ajouter à la page" />
+                                 </children>
+                              </VBox>
+                          </items>
+                        </SplitPane>
                      </content>
                 </Tab>
                 <Tab closable="false" text="Pages">
