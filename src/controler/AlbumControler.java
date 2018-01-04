@@ -61,7 +61,11 @@ public class AlbumControler {
 
 
 	public void setCurrentImage(ImageView source) {
+		if(this.current_image!=null)
+			this.current_image.setOpacity(1);
 		this.current_image = source;
+		if(this.current_image!=null)
+			this.current_image.setOpacity(0.5);
 	}
 
 
@@ -70,7 +74,16 @@ public class AlbumControler {
 		{
 			this.current_image.setX(Math.min(Math.max(0,x), windowControler.getPaneWidth()-current_image.getImage().getWidth()));
 			this.current_image.setY(Math.min(Math.max(0,y), windowControler.getPaneHeight()-current_image.getImage().getHeight()));
+			this.windowControler.setCoordField(this.current_image.getX(), this.current_image.getY());
+			
 		}
 
+	}
+
+
+	public void resizeImage(double value) {
+		this.current_image.setScaleX(value/100);
+		this.current_image.setScaleY(value/100);
+		
 	}
 }

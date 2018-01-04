@@ -10,6 +10,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -27,21 +28,27 @@
          <left>
             <Accordion maxWidth="200.0" minWidth="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <panes>
-                <TitledPane animated="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Position de l'image">
+                <TitledPane animated="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Dimensions de l'image">
                      <content>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
                               <HBox prefHeight="100.0" prefWidth="200.0">
                                  <children>
                                     <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" minHeight="-Infinity" minWidth="-Infinity" text="Abscisse" />
-                                    <TextField alignment="CENTER_RIGHT" minHeight="18.0" minWidth="25.0" prefHeight="18.0" prefWidth="25.0" text="0" />
+                                    <TextField fx:id="fieldX" alignment="CENTER_RIGHT" minHeight="18.0" minWidth="25.0" prefHeight="18.0" prefWidth="81.0" text="0" />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" minHeight="-Infinity" minWidth="-Infinity" text="Ordonnée" />
+                                    <TextField fx:id="fieldY" alignment="CENTER_RIGHT" minHeight="18.0" minWidth="25.0" prefHeight="18.0" prefWidth="80.0" text="0" />
                                  </children>
                               </HBox>
                               <Separator prefWidth="200.0" />
                               <HBox prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" minHeight="-Infinity" minWidth="-Infinity" text="Ordonnée" />
-                                    <TextField alignment="CENTER_RIGHT" minHeight="18.0" minWidth="25.0" prefHeight="18.0" prefWidth="25.0" text="0" />
+                                    <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" minHeight="-Infinity" minWidth="-Infinity" text="Redimensionner" />
+                                    <Slider fx:id="scrollDimension" min="10.0" value="100.0" />
                                  </children>
                               </HBox>
                            </children>

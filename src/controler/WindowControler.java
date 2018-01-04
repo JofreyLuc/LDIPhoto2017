@@ -3,10 +3,14 @@ package controler;
 import java.io.File;
 import java.util.ArrayList;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -37,6 +41,15 @@ public class WindowControler {
 
 	@FXML
 	private MenuItem menuAjoutImages;
+
+	@FXML
+	private TextField fieldX;
+
+	@FXML
+	private TextField fieldY;
+
+	@FXML
+	private Slider scrollDimension;
 
 	@FXML
 	private Button boutonAjoutImagePage;
@@ -98,9 +111,18 @@ public class WindowControler {
 			importPictures();
 		});
 
-		boutonAjoutImagePage.setOnAction((event) -> {
-			//addPictureToPage();
+
+
+		// Scroll event
+		scrollDimension.setOnMouseDragged(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent event) {
+				resizeImage();
+			}
 		});
+
+		this.setCurrentImage(null);
 	}
 
 	private void importPictures(){
@@ -119,6 +141,16 @@ public class WindowControler {
 		albumc.setCurrentImage(source);
 		// Il faudra aussi changer toutes les prop du pane de gauche en conséquence
 
+		if(source!=null)
+		{
+			setCoordField(source.getX(),source.getY());
+			this.scrollDimension.setDisable(false);
+		}
+		else
+		{
+			this.scrollDimension.setDisable(true);
+			setCoordField(0,0);
+		}
 	}
 
 	public double getPaneWidth() {
@@ -128,4 +160,15 @@ public class WindowControler {
 	public double getPaneHeight() {
 		return imagepane.getHeight();
 	}
+
+	public void setCoordField(double x, double y) {
+		fieldX.setText(""+x);
+		fieldY.setText(""+y);
+	}
+
+	private void resizeImage() {
+		this.albumc.resizeImage(this.scrollDimension.getValue());
+	}
+
+
 }
