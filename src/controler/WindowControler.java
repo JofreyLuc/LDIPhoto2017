@@ -42,6 +42,7 @@ public class WindowControler {
 
 	public WindowControler(AlbumControler ac, DataViewerController dc){
 		albumc = ac;
+		albumc.setWindowControler(this);
 		datac = dc;
 	}
 
@@ -49,7 +50,7 @@ public class WindowControler {
 	private void initialize(){
 
 		/***TEST***/
-		this.setPage(albumc.album.getPage(1));
+		this.albumc.setPageOnPane(this.imagepane, 1);
 
 		Picture[] ap = {
 		(new Picture(new File("./resources/cat1.jpg").toURI().toString())),
@@ -99,22 +100,24 @@ public class WindowControler {
 		//TODO : filechooser etc.
 	}
 
-	/* A BOUGER DANS ALBUMCONTROLLER */
-	private void setPage(Page p)
-	{
-		for(Picture pi : p.getPictures())
-		{
-			ImageView iv = new ImageView(pi.getImage());
-			this.imagepane.getChildren().add(iv);
-			iv.setX(pi.x);
-			iv.setY(pi.y);
-		}
-	}
-
 
 
 	private void addPicturesToViewer(Picture... pictures)
 	{
 		this.datac.addPicturesToViewer(flowPaneImages, pictures);
+	}
+
+	public void setCurrentImage(ImageView source) {
+		albumc.setCurrentImage(source);
+		// Il faudra aussi changer toutes les prop du pane de gauche en conséquence
+		
+	}
+
+	public double getPaneWidth() {
+		return imagepane.getWidth();
+	}
+
+	public double getPaneHeight() {
+		return imagepane.getHeight();
 	}
 }
