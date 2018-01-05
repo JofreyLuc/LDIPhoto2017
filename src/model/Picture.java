@@ -1,18 +1,20 @@
 package model;
 
-import java.awt.Color;
+
 import java.io.File;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
+import javafx.scene.paint.Color;
 
 public class Picture {
 
 	public double x, y;
 	private Image image;
-	private double borderWidth;
+	private int borderWidth;
 	private Color borderColor;
 	private double scale;
+
 
 	public Picture(String i, double x, double y)
 	{
@@ -48,7 +50,7 @@ public class Picture {
 		return image;
 	}
 
-	public void applyBorder(double width, Color color){
+	public void applyBorder(int width, Color color){
 		this.borderWidth = width;
 		this.borderColor = color;
 	}
@@ -61,6 +63,15 @@ public class Picture {
 	public double getScale()
 	{
 		return scale;
+	}
+
+	public int getBorderWidth() {
+		return this.borderWidth;
+	}
+
+	public Color getBorderColor() {
+		// TODO Auto-generated method stub
+		return this.borderColor;
 	}
 
 

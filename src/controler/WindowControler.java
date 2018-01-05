@@ -47,6 +47,9 @@ public class WindowControler {
 
 	@FXML // TextField contenant l'ord. de l'image selectionnée dans le Pane de gauche
 	private TextField fieldY;
+	
+	@FXML // TextField contenant la largeur de l'image
+	private TextField fieldborderWidth;
 
 	@FXML // Slider permettant de redimensionner l'image, de 10% à 100% de la taille de base
 	private Slider scaleDimension;
@@ -128,6 +131,55 @@ public class WindowControler {
 			public void handle(MouseEvent event) {
 				resizeImage();
 			}
+		});
+		
+		// Events sur changement des textFields
+		
+		this.fieldX.textProperty().addListener((observable, oldValue, newValue) -> {
+			double new_double;
+			try{
+				new_double = Double.parseDouble(newValue);
+				
+			}catch(NumberFormatException e ){
+				new_double = 0;
+				this.fieldX.setText("0");
+			}
+			
+			this.albumc.moveCurrentImage(new_double, Double.parseDouble(this.fieldY.getText()));
+			
+		});
+		
+		this.fieldY.textProperty().addListener((observable, oldValue, newValue) -> {
+			double new_double;
+			try{
+				new_double = Double.parseDouble(newValue);
+				
+			}catch(NumberFormatException e ){
+				new_double = 0;
+				this.fieldY.setText("0");
+			}
+			
+			this.albumc.moveCurrentImage(Double.parseDouble(this.fieldX.getText()), new_double);
+			
+		});
+		
+		this.fieldborderWidth.textProperty().addListener((observable, oldValue, newValue) -> {
+			double new_double;
+			try{
+				new_double = Double.parseDouble(newValue);
+				
+			}catch(NumberFormatException e ){
+				new_double = 0;
+				this.fieldborderWidth.setText("0");
+			}
+			if(new_double<0)
+			{
+				new_double=0;
+				this.fieldborderWidth.setText("0");
+			}
+			
+			this.albumc.changeBordureWidth(new_double);
+			
 		});
 
 		this.setCurrentPageImage(null);
@@ -211,6 +263,11 @@ public class WindowControler {
 	 */
 	public void setscalePaneValue(double scale) {
 		this.scaleDimension.adjustValue(scale);
+		
+	}
+
+	public void setBorderWidth(int i) {
+		this.fieldborderWidth.setText(""+i);
 		
 	}
 
