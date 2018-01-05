@@ -14,6 +14,7 @@ public class Picture {
 	private int borderWidth;
 	private Color borderColor;
 	private double scale;
+	private String legende;
 
 
 	public Picture(String i, double x, double y)
@@ -24,6 +25,7 @@ public class Picture {
 		this.borderWidth = 0;
 		this.borderColor = null;
 		this.scale=1.;
+		this.legende="";
 	}
 
 	public Picture(Image i, double x, double y)
@@ -34,6 +36,7 @@ public class Picture {
 		this.borderWidth = 0;
 		this.borderColor = null;
 		this.scale=1.;
+		this.legende="";
 	}
 
 	public Picture(String i)
@@ -43,6 +46,7 @@ public class Picture {
 		this.y = 0;
 		this.borderWidth = 0;
 		this.borderColor = null;
+		this.legende="";
 	}
 
 	public Image getImage()
@@ -72,6 +76,16 @@ public class Picture {
 	public Color getBorderColor() {
 		// TODO Auto-generated method stub
 		return this.borderColor;
+	}
+
+	public void setLegende(String s) {
+		this.legende=s;
+		
+	}
+
+	public String getLegende() {
+		// TODO Auto-generated method stub
+		return legende;
 	}
 
 

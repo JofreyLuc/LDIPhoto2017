@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import controler.events.OnClickImage;
 import controler.events.OnDragImage;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -51,6 +52,7 @@ public class AlbumControler {
 
 		// Pour le test, on ajoute des photos dans la page 1
 		Picture pi = new Picture(new File("./resources/img.jpg").toURI().toString(),5,5);
+		pi.setLegende("Hola");
 		pi.applyBorder(50, new Color(0, 0.5, 0.5,1));
 		pi.setScale(0.5);
 		album.getPage(1).addPicture(pi);
@@ -84,8 +86,8 @@ public class AlbumControler {
 		images.add(iv);
 		VBox box = new VBox();
 		box.getChildren().add(iv);
-		Label lab = new Label("Coucou");
-		box.getChildren().add(lab);
+		//Label lab = new Label("Coucou");
+		//box.getChildren().add(lab);
 		p.getChildren().add(box);
 		//iv.setX(pic.x);
 		iv.getParent().setLayoutX(pic.x);
@@ -95,6 +97,7 @@ public class AlbumControler {
 			
 		
 		this.changeBordure(iv);
+		this.changeLegende(iv);
 		box.setOnMousePressed(new OnClickImage(this));
 		box.setOnMouseDragged(new OnDragImage(this));
 		
@@ -144,6 +147,7 @@ public class AlbumControler {
 			this.windowControler.setCoordField(this.album.getPage(this.current_page).getPictures().get(place_image).x, this.album.getPage(this.current_page).getPictures().get(place_image).y);
 			this.windowControler.setBorderWidth(this.album.getPage(this.current_page).getPictures().get(place_image).getBorderWidth());
 			this.windowControler.setColorPicker(this.album.getPage(this.current_page).getPictures().get(place_image).getBorderColor());
+			this.changeLegende(this.current_image);
 			
 		}
 	}
@@ -222,5 +226,33 @@ public class AlbumControler {
 		Picture pi = this.album.getPage(this.current_page).getPictures().get(place_image);
 		pi.applyBorder(pi.getBorderWidth(), c);
 		this.changeBordure(current_image);
+	}
+
+	public void changeLegende(String newValue) {
+		int place_image = this.images.indexOf(this.current_image); 
+		Picture pi = this.album.getPage(this.current_page).getPictures().get(place_image);
+		pi.setLegende(newValue);
+		this.changeLegende(current_image);
+		
+	}
+	
+	public void changeLegende(ImageView img)
+	{
+		int place_image = this.images.indexOf(img); 
+		Picture pi = this.album.getPage(this.current_page).getPictures().get(place_image);
+		VBox parent = ((VBox)img.getParent());
+		if(parent.getChildren().size()==1)
+		{
+			Label l = new Label(pi.getLegende());
+			parent.getChildren().add(l);
+			parent.setAlignment(Pos.CENTER);
+			l.setStyle("-fx-text-alignment: center;");
+		}
+		else
+		{
+			Label l = (Label) parent.getChildren().get(1);
+			l.setText(pi.getLegende());
+		}
+		this.windowControler.setfieldLegende(pi.getLegende());
 	}
 }
