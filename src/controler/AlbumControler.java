@@ -62,9 +62,19 @@ public class AlbumControler {
 		}
 	}
 
-	public void addPictureToPage(ImageView iv, double x, double y) {
+	private void addPictureToPane(Picture pic, Pane p){
+		ImageView iv = new ImageView(pic.getImage());
+		p.getChildren().add(iv);
+		iv.setX(pic.x);
+		iv.setY(pic.y);
+		iv.setOnMousePressed(new OnClickImage(this));
+		iv.setOnMouseDragged(new OnDragImage(this));
+	}
+
+	public void addPictureToPage(ImageView iv, double x, double y, Pane imagepane) {
 		Picture p = new Picture(iv.getImage(), x, y);
 		album.getPage(current_page).addPicture(p);
+		addPictureToPane(p, imagepane);
 	}
 
 	public void onChangeCurrentImage(ImageView source) {

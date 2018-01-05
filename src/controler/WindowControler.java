@@ -155,8 +155,7 @@ public class WindowControler {
 	 * Ajoute une nouvelle Picture dans la page a partir de l'ImageView qui est en focus dans le panneau de droite
 	 */
 	private void addCurrentViewerImageToPage() {
-		this.albumc.addPictureToPage(datac.getCurrentViewerImage(), imagepane.getWidth() / 2, imagepane.getHeight() / 2);
-		this.albumc.setCurrentPageOnPane(imagepane);
+		this.albumc.addPictureToPage(datac.getCurrentViewerImage(), imagepane.getWidth() / 2, imagepane.getHeight() / 2, imagepane);
 	}
 
 	public void setCurrentPageImage(ImageView source) {
