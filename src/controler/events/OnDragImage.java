@@ -20,7 +20,7 @@ public class OnDragImage implements EventHandler<MouseEvent> {
 
 	@Override
 	public void handle(MouseEvent e) {
-		this.a.moveCurrentImage(e.getX(), e.getY());
+		this.a.moveCurrentImage(e.getSceneX()-285, e.getSceneY()-84);
 	}
 
 }

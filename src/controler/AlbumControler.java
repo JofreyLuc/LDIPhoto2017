@@ -5,8 +5,11 @@ import java.util.ArrayList;
 
 import controler.events.OnClickImage;
 import controler.events.OnDragImage;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import model.Album;
 import model.Page;
 import model.Picture;
@@ -76,15 +79,24 @@ public class AlbumControler {
 	 */
 	private void addPictureToPane(Picture pic, Pane p){
 		ImageView iv = new ImageView(pic.getImage());
-		p.getChildren().add(iv);
-		iv.setX(pic.x);
-		iv.setY(pic.y);
+		VBox box = new VBox();
+		box.getChildren().add(iv);
+		Label lab = new Label("Coucou");
+		box.getChildren().add(lab);
+		p.getChildren().add(box);
+		//iv.setX(pic.x);
+		iv.getParent().setLayoutX(pic.x);
+		iv.getParent().setLayoutY(pic.y);
+		//iv.setY(pic.y);
 		//iv.setScaleX(pic.getScale());
 		//iv.setScaleY(pic.getScale());
 		iv.setFitHeight(iv.getImage().getHeight()*pic.getScale());
 		iv.setPreserveRatio(true);
 		iv.setOnMousePressed(new OnClickImage(this));
 		iv.setOnMouseDragged(new OnDragImage(this));
+		
+		// Test CSS bordure
+		iv.getParent().setStyle("-fx-border-color: rgb(255,0,0);"+ "-fx-border-width: 1;");
 		images.add(iv);	
 		
 	}
@@ -137,16 +149,20 @@ public class AlbumControler {
 			// On change les coord de la vue
 			int place_image = this.images.indexOf(this.current_image);
 			double scale = this.album.getPage(this.current_page).getPictures().get(place_image).getScale();
-			this.current_image.setX(Math.min(Math.max(1,x), windowControler.getPaneWidth()-current_image.getImage().getWidth()*scale-1));
-			this.current_image.setY(Math.min(Math.max(1,y), windowControler.getPaneHeight()-current_image.getImage().getHeight()*scale-1));
+			this.current_image.getParent().setLayoutX(Math.min(Math.max(1,x), windowControler.getPaneWidth()-current_image.getImage().getWidth()*scale-1));
+			this.current_image.getParent().setLayoutY(Math.min(Math.max(1,y), windowControler.getPaneHeight()-current_image.getImage().getHeight()*scale-1));
 			//On change les valeurs des fields
 			this.windowControler.setCoordField(this.current_image.getX(), this.current_image.getY());
 			
+			// this.current_image.getParent().getLayoutBounds().getMinX()
 			
 			// On modifie les coordonnées de la Picture associée
 			
-			this.album.getPage(this.current_page).getPictures().get(place_image).x = this.current_image.getX();
-			this.album.getPage(this.current_page).getPictures().get(place_image).y = this.current_image.getY();
+			//this.album.getPage(this.current_page).getPictures().get(place_image).x = this.current_image.getX();
+			//this.album.getPage(this.current_page).getPictures().get(place_image).y = this.current_image.getY();
+			this.album.getPage(this.current_page).getPictures().get(place_image).x = this.current_image.getParent().getLayoutX();
+			this.album.getPage(this.current_page).getPictures().get(place_image).y = this.current_image.getParent().getLayoutY();
+			 
 
 		}
 
