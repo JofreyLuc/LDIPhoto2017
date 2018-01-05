@@ -2,6 +2,7 @@ package controler;
 
 import java.io.File;
 
+import controler.events.OnFocusImageViewerRight;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -31,8 +32,6 @@ public class DataViewerController {
 	/* A BOUGER ? */
 	private final static int PICTURE_SIZE = 100;
 
-	private Button addPictureToPage;
-
 	public DataViewerController() {
 
 	}
@@ -53,27 +52,18 @@ public class DataViewerController {
 	 * @param fp - Le panneau de l'onglet images
 	 * @param pictures - L'ensemble d'images a ajouter
 	 */
-	public void addPicturesToViewer(FlowPane fp, Picture... pictures){
+	public void addPicturesToViewer(FlowPane fp, Button b, Picture... pictures){
 		for (Picture p : pictures) {
 			ImageView newPic = new ImageView(p.getImage());
 			newPic.setFocusTraversable(true);
 
 
-			//TODO : Bouger ça dans une classe, ajouter le trigger du bouton d'ajout à la page
+			//TODO : Bouger ça dans une classe ?
 			newPic.setOnMouseClicked((event) -> {
 				newPic.requestFocus();
 			});
-			newPic.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-			    if (newValue) {
-			    	newPic.setOpacity(.5);
-			    	newPic.setRotate(25);
-			    }
-			    else {
-			    	newPic.setOpacity(1);
-			    	newPic.setRotate(0);
-			    }
-			});
 
+			newPic.focusedProperty().addListener(new OnFocusImageViewerRight(newPic, b));
 
 			this.resizeToThumbnail(newPic);
 			fp.getChildren().add(newPic);

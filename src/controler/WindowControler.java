@@ -89,12 +89,13 @@ public class WindowControler {
 		(new Picture(new File("./resources/cat1.jpg").toURI().toString())),
 		(new Picture(new File("./resources/img.jpg").toURI().toString()))
 		};
-		datac.addPicturesToViewer(flowPaneImages, ap);
+		datac.addPicturesToViewer(flowPaneImages, boutonAjoutImagePage, ap);
 
 		datac.refreshPagesView(flowPanePages, albumc.album.getPage(1));
 		/***TEST***/
 
-		// Gestion des menus (a mettre dans une classe separee ?)
+
+		//TODO : Gestion des menus (a mettre dans une classe separee ?)
 		menuNouvelAlbum.setOnAction((event) -> {
 			//generateNewAlbum()
 		});
@@ -131,10 +132,13 @@ public class WindowControler {
 	}
 
 
-
+	/**
+	 * Ajoute des images dans le panneau de droite grace au DataViwerController.
+	 * @param pictures - Les images a ajouter
+	 */
 	private void addPicturesToViewer(Picture... pictures)
 	{
-		this.datac.addPicturesToViewer(flowPaneImages, pictures);
+		this.datac.addPicturesToViewer(flowPaneImages, boutonAjoutImagePage, pictures);
 	}
 
 	public void setCurrentImage(ImageView source) {
