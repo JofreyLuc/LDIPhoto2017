@@ -79,8 +79,10 @@ public class AlbumControler {
 		p.getChildren().add(iv);
 		iv.setX(pic.x);
 		iv.setY(pic.y);
-		iv.setScaleX(pic.getScale());
-		iv.setScaleY(pic.getScale());
+		//iv.setScaleX(pic.getScale());
+		//iv.setScaleY(pic.getScale());
+		iv.setFitHeight(iv.getImage().getHeight()*pic.getScale());
+		iv.setPreserveRatio(true);
 		iv.setOnMousePressed(new OnClickImage(this));
 		iv.setOnMouseDragged(new OnDragImage(this));
 		images.add(iv);	
@@ -133,13 +135,13 @@ public class AlbumControler {
 		if(current_image!=null)
 		{
 			// On change les coord de la vue
-			this.current_image.setX(Math.min(Math.max(1,x), windowControler.getPaneWidth()-current_image.getImage().getWidth()-1));
-			this.current_image.setY(Math.min(Math.max(1,y), windowControler.getPaneHeight()-current_image.getImage().getHeight()-1));
+			int place_image = this.images.indexOf(this.current_image);
+			double scale = this.album.getPage(this.current_page).getPictures().get(place_image).getScale();
+			this.current_image.setX(Math.min(Math.max(1,x), windowControler.getPaneWidth()-current_image.getImage().getWidth()*scale-1));
+			this.current_image.setY(Math.min(Math.max(1,y), windowControler.getPaneHeight()-current_image.getImage().getHeight()*scale-1));
 			//On change les valeurs des fields
 			this.windowControler.setCoordField(this.current_image.getX(), this.current_image.getY());
 			
-			// On modifie les coordonnées de l'image dans le modele
-			int place_image = this.images.indexOf(this.current_image);
 			
 			// On modifie les coordonnées de la Picture associée
 			
@@ -154,8 +156,9 @@ public class AlbumControler {
  * Re-scale l'image selectionnée
  */
 	public void resizeImage(double value) {
-		this.current_image.setScaleX(value/100);
-		this.current_image.setScaleY(value/100);
+		//this.current_image.setScaleX(value/100);
+		//this.current_image.setScaleY(value/100);
+		this.current_image.setFitHeight(this.current_image.getImage().getHeight()*value/100);
 		
 		// On enregistre le scale dans Picture pour une réutilisation postérieure
 		int place_image = this.images.indexOf(this.current_image);
