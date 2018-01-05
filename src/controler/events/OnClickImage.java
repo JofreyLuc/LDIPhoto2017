@@ -5,6 +5,10 @@ import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * Classe implémentant l'action d'un clic souris sur une image du panneau central
+ *
+ */
 public class OnClickImage implements EventHandler<MouseEvent> {
 
 	AlbumControler a;

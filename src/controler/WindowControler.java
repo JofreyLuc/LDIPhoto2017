@@ -42,18 +42,19 @@ public class WindowControler {
 	@FXML
 	private MenuItem menuAjoutImages;
 
-	@FXML
+	@FXML // TextField contenant l'abs. de l'image selectionnée dans le Pane de gauche
 	private TextField fieldX;
 
-	@FXML
+	@FXML // TextField contenant l'ord. de l'image selectionnée dans le Pane de gauche
 	private TextField fieldY;
 
-	@FXML
-	private Slider scrollDimension;
+	@FXML // Slider permettant de redimensionner l'image, de 10% à 100% de la taille de base
+	private Slider scaleDimension;
 
-	@FXML
+	@FXML // Bouton permettant l'ajout d'une image dans la page actuelle
 	private Button boutonAjoutImagePage;
 
+	// Controleurs
 	private AlbumControler albumc;
 	private DataViewerController datac;
 
@@ -120,8 +121,8 @@ public class WindowControler {
 
 
 
-		// Scroll event
-		scrollDimension.setOnMouseDragged(new EventHandler<MouseEvent>(){
+		// Event sur pression du scaleDimension
+		scaleDimension.setOnMouseDragged(new EventHandler<MouseEvent>(){
 
 			@Override
 			public void handle(MouseEvent event) {
@@ -158,37 +159,61 @@ public class WindowControler {
 		this.albumc.addPictureToPage(datac.getCurrentViewerImage(), imagepane.getWidth() / 2, imagepane.getHeight() / 2, imagepane);
 	}
 
+	/**
+	 * Change l'image selectionnée, et en informe le controleur
+	 */
 	public void setCurrentPageImage(ImageView source) {
 		albumc.setCurrentImage(source);
-		// Il faudra aussi changer toutes les prop du pane de gauche en conséquence
+		// TODO: Changer toutes les prop du pane de gauche en conséquence
 
+		
 		if(source!=null)
 		{
 			setCoordField(source.getX(),source.getY());
-			this.scrollDimension.setDisable(false);
+			this.scaleDimension.setDisable(false);
 		}
 		else
 		{
-			this.scrollDimension.setDisable(true);
+			this.scaleDimension.setDisable(true);
 			setCoordField(0,0);
 		}
 	}
 
+	/**
+	 * Retourne la largeur du panneau central
+	 */
 	public double getPaneWidth() {
 		return imagepane.getWidth();
 	}
 
+	/**
+	 * Retourne la hauteur du panneau central
+	 */
 	public double getPaneHeight() {
 		return imagepane.getHeight();
 	}
 
+	/**
+	 * Change les coordonnées dans les fields du panneau de gauche
+	 */
 	public void setCoordField(double x, double y) {
 		fieldX.setText(""+x);
 		fieldY.setText(""+y);
 	}
 
+	/**
+	 * Modifie la taille de l'image en fonction du scaleDimension
+	 */
 	private void resizeImage() {
-		this.albumc.resizeImage(this.scrollDimension.getValue());
+		this.albumc.resizeImage(this.scaleDimension.getValue());
+	}
+
+	/**
+	 * Change la valeur du scalePane
+	 */
+	public void setscalePaneValue(double scale) {
+		this.scaleDimension.adjustValue(scale);
+		
 	}
 
 
