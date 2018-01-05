@@ -100,6 +100,7 @@ public class WindowControler {
 		boutonAjoutImagePage.setOnAction((event) -> {
 			addCurrentViewerImageToPage();
 		});
+		boutonAjoutImagePage.setDisable(true);
 
 		//TODO : Gestion des menus (a mettre dans une classe separee ?)
 		menuNouvelAlbum.setOnAction((event) -> {
