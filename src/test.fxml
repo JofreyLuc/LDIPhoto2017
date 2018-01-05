@@ -48,7 +48,7 @@
                               <HBox prefHeight="100.0" prefWidth="200.0">
                                  <children>
                                     <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" minHeight="-Infinity" minWidth="-Infinity" text="Redimensionner" />
-                                    <Slider fx:id="scrollDimension" min="10.0" value="100.0" />
+                                    <Slider fx:id="scaleDimension" min="10.0" value="100.0" />
                                  </children>
                               </HBox>
                            </children>
@@ -156,7 +156,7 @@
           </MenuBar>
          </top>
          <center>
-            <Pane fx:id="imagepane" maxHeight="600.0" maxWidth="450.0" minHeight="600.0" minWidth="450.0" prefHeight="600.0" prefWidth="450.0" style="-fx-background-color: rgb(255,255,255);" BorderPane.alignment="CENTER" />
+            <Pane fx:id="imagepane" maxHeight="600.0" maxWidth="450.0" minHeight="600.0" minWidth="450.0" prefHeight="600.0" prefWidth="450.0" style="-fx-background-color: rgb(255,255,255); -fx-border-color: rgb(0,0,0);" BorderPane.alignment="CENTER" />
          </center>
       </BorderPane>
   </children>

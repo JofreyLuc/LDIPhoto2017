@@ -12,6 +12,7 @@ public class Picture {
 	private Image image;
 	private double borderWidth;
 	private Color borderColor;
+	private double scale;
 
 	public Picture(String i, double x, double y)
 	{
@@ -20,6 +21,7 @@ public class Picture {
 		this.y=y;
 		this.borderWidth = 0;
 		this.borderColor = null;
+		this.scale=1.;
 	}
 
 	public Picture(Image i, double x, double y)
@@ -29,6 +31,7 @@ public class Picture {
 		this.y=y;
 		this.borderWidth = 0;
 		this.borderColor = null;
+		this.scale=1.;
 	}
 
 	public Picture(String i)
@@ -48,6 +51,16 @@ public class Picture {
 	public void applyBorder(double width, Color color){
 		this.borderWidth = width;
 		this.borderColor = color;
+	}
+
+	public void setScale(double value) {
+		this.scale = value;
+		
+	}
+	
+	public double getScale()
+	{
+		return scale;
 	}
 
 
