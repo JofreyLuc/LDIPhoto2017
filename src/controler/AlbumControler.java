@@ -143,6 +143,7 @@ public class AlbumControler {
 
 			this.windowControler.setCoordField(this.album.getPage(this.current_page).getPictures().get(place_image).x, this.album.getPage(this.current_page).getPictures().get(place_image).y);
 			this.windowControler.setBorderWidth(this.album.getPage(this.current_page).getPictures().get(place_image).getBorderWidth());
+			this.windowControler.setColorPicker(this.album.getPage(this.current_page).getPictures().get(place_image).getBorderColor());
 			
 		}
 	}
@@ -213,5 +214,13 @@ public class AlbumControler {
 			pi.applyBorder((int)d, pi.getBorderColor());
 		this.changeBordure(current_image);
 		}
+	}
+	
+	public void changeBordureColor(Color c)
+	{
+		int place_image = this.images.indexOf(this.current_image); 
+		Picture pi = this.album.getPage(this.current_page).getPictures().get(place_image);
+		pi.applyBorder(pi.getBorderWidth(), c);
+		this.changeBordure(current_image);
 	}
 }

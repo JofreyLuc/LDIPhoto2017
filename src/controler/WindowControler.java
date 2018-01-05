@@ -3,9 +3,11 @@ package controler;
 import java.io.File;
 import java.util.ArrayList;
 
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
@@ -15,6 +17,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.paint.Color;
 import model.Page;
 import model.Picture;
 
@@ -56,6 +59,9 @@ public class WindowControler {
 
 	@FXML // Bouton permettant l'ajout d'une image dans la page actuelle
 	private Button boutonAjoutImagePage;
+	
+	@FXML
+	private ColorPicker borderColorPicker;
 
 	// Controleurs
 	private AlbumControler albumc;
@@ -181,6 +187,13 @@ public class WindowControler {
 			this.albumc.changeBordureWidth(new_double);
 			
 		});
+		
+		this.borderColorPicker.setOnAction(new EventHandler() {
+			@Override
+			public void handle(Event e) {
+				albumc.changeBordureColor(borderColorPicker.getValue());				
+			}
+        });
 
 		this.setCurrentPageImage(null);
 	}
@@ -268,6 +281,11 @@ public class WindowControler {
 
 	public void setBorderWidth(int i) {
 		this.fieldborderWidth.setText(""+i);
+		
+	}
+
+	public void setColorPicker(Color borderColor) {
+		this.borderColorPicker.setValue(borderColor);
 		
 	}
 
