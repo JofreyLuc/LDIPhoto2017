@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import model.Album;
 import model.Page;
 import model.Picture;
@@ -50,6 +51,7 @@ public class AlbumControler {
 
 		// Pour le test, on ajoute des photos dans la page 1
 		Picture pi = new Picture(new File("./resources/img.jpg").toURI().toString(),5,5);
+		pi.applyBorder(50, new Color(0, 0.5, 0.5,1));
 		pi.setScale(0.5);
 		album.getPage(1).addPicture(pi);
 		
@@ -79,6 +81,7 @@ public class AlbumControler {
 	 */
 	private void addPictureToPane(Picture pic, Pane p){
 		ImageView iv = new ImageView(pic.getImage());
+		images.add(iv);
 		VBox box = new VBox();
 		box.getChildren().add(iv);
 		Label lab = new Label("Coucou");
@@ -87,17 +90,17 @@ public class AlbumControler {
 		//iv.setX(pic.x);
 		iv.getParent().setLayoutX(pic.x);
 		iv.getParent().setLayoutY(pic.y);
-		//iv.setY(pic.y);
-		//iv.setScaleX(pic.getScale());
-		//iv.setScaleY(pic.getScale());
 		iv.setFitHeight(iv.getImage().getHeight()*pic.getScale());
 		iv.setPreserveRatio(true);
-		iv.setOnMousePressed(new OnClickImage(this));
-		iv.setOnMouseDragged(new OnDragImage(this));
+			
+		
+		this.changeBordure(iv);
+		box.setOnMousePressed(new OnClickImage(this));
+		box.setOnMouseDragged(new OnDragImage(this));
 		
 		// Test CSS bordure
-		iv.getParent().setStyle("-fx-border-color: rgb(255,0,0);"+ "-fx-border-width: 1;");
-		images.add(iv);	
+		//iv.getParent().setStyle("-fx-border-color: rgb(255,0,0);"+ "-fx-border-width: 1;");
+		
 		
 	}
 
@@ -132,12 +135,16 @@ public class AlbumControler {
 		this.current_image = source;
 		if(this.current_image!=null)
 		{
+			
 			this.current_image.setOpacity(0.5);
 			int place_image = this.images.indexOf(this.current_image);
 			this.windowControler.setscalePaneValue(this.album.getPage(this.current_page).getPictures().get(place_image).getScale()*100);
+			
+
+			this.windowControler.setCoordField(this.album.getPage(this.current_page).getPictures().get(place_image).x, this.album.getPage(this.current_page).getPictures().get(place_image).y);
+			this.windowControler.setBorderWidth(this.album.getPage(this.current_page).getPictures().get(place_image).getBorderWidth());
+			
 		}
-		
-		
 	}
 
 /**
@@ -149,10 +156,9 @@ public class AlbumControler {
 			// On change les coord de la vue
 			int place_image = this.images.indexOf(this.current_image);
 			double scale = this.album.getPage(this.current_page).getPictures().get(place_image).getScale();
-			this.current_image.getParent().setLayoutX(Math.min(Math.max(1,x), windowControler.getPaneWidth()-current_image.getImage().getWidth()*scale-1));
-			this.current_image.getParent().setLayoutY(Math.min(Math.max(1,y), windowControler.getPaneHeight()-current_image.getImage().getHeight()*scale-1));
-			//On change les valeurs des fields
-			this.windowControler.setCoordField(this.current_image.getX(), this.current_image.getY());
+			this.current_image.getParent().setLayoutX(Math.min(Math.max(1,x), windowControler.getPaneWidth()-current_image.getParent().getBoundsInParent().getWidth()-1));
+			this.current_image.getParent().setLayoutY(Math.min(Math.max(1,y), windowControler.getPaneHeight()-current_image.getParent().getBoundsInParent().getHeight()-1));
+			
 			
 			// this.current_image.getParent().getLayoutBounds().getMinX()
 			
@@ -162,6 +168,9 @@ public class AlbumControler {
 			//this.album.getPage(this.current_page).getPictures().get(place_image).y = this.current_image.getY();
 			this.album.getPage(this.current_page).getPictures().get(place_image).x = this.current_image.getParent().getLayoutX();
 			this.album.getPage(this.current_page).getPictures().get(place_image).y = this.current_image.getParent().getLayoutY();
+			
+			//On change les valeurs des fields
+			this.windowControler.setCoordField(this.album.getPage(this.current_page).getPictures().get(place_image).x, this.album.getPage(this.current_page).getPictures().get(place_image).y);
 			 
 
 		}
@@ -180,5 +189,29 @@ public class AlbumControler {
 		int place_image = this.images.indexOf(this.current_image);
 		this.album.getPage(this.current_page).getPictures().get(place_image).setScale(value/100);
 
+	}
+	
+	public void changeBordure(ImageView img)
+	{
+		//TODO: Faire une methode pour retourner ca, j'ia l'impression de l'avoir cc souvent ?
+		int place_image = this.images.indexOf(img); 
+		Picture pi = this.album.getPage(this.current_page).getPictures().get(place_image);
+		if(pi.getBorderWidth()>1 && pi.getBorderColor()!=null)
+			img.getParent().setStyle("-fx-border-color: rgb("+pi.getBorderColor().getRed()*255+","+pi.getBorderColor().getGreen()*255+","+pi.getBorderColor().getBlue()*255+");"+ "-fx-border-width: "+pi.getBorderWidth()+";");
+		else
+			img.getParent().setStyle("");
+	}
+
+	public void changeBordureWidth(double d) {
+		if(current_image!=null)
+		{
+		int place_image = this.images.indexOf(this.current_image); 
+		Picture pi = this.album.getPage(this.current_page).getPictures().get(place_image);
+		if(pi.getBorderColor()==null)
+			pi.applyBorder((int)d, new Color(0,0,0,1));
+		else
+			pi.applyBorder((int)d, pi.getBorderColor());
+		this.changeBordure(current_image);
+		}
 	}
 }
