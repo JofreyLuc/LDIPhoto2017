@@ -92,8 +92,8 @@ public class AlbumControler {
 		//iv.setScaleY(pic.getScale());
 		iv.setFitHeight(iv.getImage().getHeight()*pic.getScale());
 		iv.setPreserveRatio(true);
-		iv.setOnMousePressed(new OnClickImage(this));
-		iv.setOnMouseDragged(new OnDragImage(this));
+		box.setOnMousePressed(new OnClickImage(this));
+		box.setOnMouseDragged(new OnDragImage(this));
 		
 		// Test CSS bordure
 		iv.getParent().setStyle("-fx-border-color: rgb(255,0,0);"+ "-fx-border-width: 1;");
@@ -132,12 +132,15 @@ public class AlbumControler {
 		this.current_image = source;
 		if(this.current_image!=null)
 		{
+			
 			this.current_image.setOpacity(0.5);
 			int place_image = this.images.indexOf(this.current_image);
 			this.windowControler.setscalePaneValue(this.album.getPage(this.current_page).getPictures().get(place_image).getScale()*100);
+			
+
+			this.windowControler.setCoordField(this.album.getPage(this.current_page).getPictures().get(place_image).x, this.album.getPage(this.current_page).getPictures().get(place_image).y);
+			
 		}
-		
-		
 	}
 
 /**
@@ -149,10 +152,9 @@ public class AlbumControler {
 			// On change les coord de la vue
 			int place_image = this.images.indexOf(this.current_image);
 			double scale = this.album.getPage(this.current_page).getPictures().get(place_image).getScale();
-			this.current_image.getParent().setLayoutX(Math.min(Math.max(1,x), windowControler.getPaneWidth()-current_image.getImage().getWidth()*scale-1));
-			this.current_image.getParent().setLayoutY(Math.min(Math.max(1,y), windowControler.getPaneHeight()-current_image.getImage().getHeight()*scale-1));
-			//On change les valeurs des fields
-			this.windowControler.setCoordField(this.current_image.getX(), this.current_image.getY());
+			this.current_image.getParent().setLayoutX(Math.min(Math.max(1,x), windowControler.getPaneWidth()-current_image.getParent().getBoundsInParent().getWidth()-1));
+			this.current_image.getParent().setLayoutY(Math.min(Math.max(1,y), windowControler.getPaneHeight()-current_image.getParent().getBoundsInParent().getHeight()-1));
+			
 			
 			// this.current_image.getParent().getLayoutBounds().getMinX()
 			
@@ -162,6 +164,9 @@ public class AlbumControler {
 			//this.album.getPage(this.current_page).getPictures().get(place_image).y = this.current_image.getY();
 			this.album.getPage(this.current_page).getPictures().get(place_image).x = this.current_image.getParent().getLayoutX();
 			this.album.getPage(this.current_page).getPictures().get(place_image).y = this.current_image.getParent().getLayoutY();
+			
+			//On change les valeurs des fields
+			this.windowControler.setCoordField(this.album.getPage(this.current_page).getPictures().get(place_image).x, this.album.getPage(this.current_page).getPictures().get(place_image).y);
 			 
 
 		}

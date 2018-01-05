@@ -169,13 +169,11 @@ public class WindowControler {
 		
 		if(source!=null)
 		{
-			setCoordField(source.getX(),source.getY());
 			this.scaleDimension.setDisable(false);
 		}
 		else
 		{
 			this.scaleDimension.setDisable(true);
-			setCoordField(0,0);
 		}
 	}
 
