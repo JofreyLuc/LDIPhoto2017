@@ -1,45 +1,34 @@
 package controler.events;
 
+import controler.DataViewerController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 /**
  * Ecouteur gerant le changement de focus des images du panneau de droite, pour savoir sur quelle image l'on vient de cliquer
  * @author Jofrey
  */
-public class OnFocusImageViewerRight implements ChangeListener<Boolean> {
-
-	/**
-	 * Bouton d'ajout de l'image à la page (sera active/desactive)
-	 */
-	private Button addToPageButton;
+public class OnFocusImageViewerRight implements EventHandler<MouseEvent> {
 
 	/**
 	 * ImageView contenant l'image (gagnera/perdre le style de focus)
 	 */
 	private ImageView img;
 
-	public OnFocusImageViewerRight(ImageView i, Button b) {
+	private DataViewerController datac;
+
+	public OnFocusImageViewerRight(ImageView i, DataViewerController d) {
 		this.img = i;
-		this.addToPageButton = b;
+		datac = d;
 	}
 
 	@Override
-	public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-		if (newValue) {
-			// On gagne le focus
-	    	this.img.setOpacity(.5);
-	    	this.img.setRotate(25);
-	    	this.addToPageButton.setDisable(false);
-	    }
-	    else {
-	    	// On perd le focus
-	    	this.img.setOpacity(1);
-	    	this.img.setRotate(0);
-	    	this.addToPageButton.setDisable(true);
-	    }
+	public void handle(MouseEvent event) {
+		datac.setCurrentViewerImage(this.img);
 	}
 
 }

@@ -61,6 +61,7 @@ public class WindowControler {
 		albumc = ac;
 		albumc.setWindowControler(this);
 		datac = dc;
+		datac.setWindowControler(this);
 	}
 
 	@FXML
@@ -94,6 +95,11 @@ public class WindowControler {
 		datac.refreshPagesView(flowPanePages, albumc.album.getPage(1));
 		/***TEST***/
 
+		//TODO : Rafraichissement du viewer des pages : on focus PagesTab ?
+		//TODO : Bouton d'ajout de l'image à la page : A bouger ?
+		boutonAjoutImagePage.setOnAction((event) -> {
+			addCurrentViewerImageToPage();
+		});
 
 		//TODO : Gestion des menus (a mettre dans une classe separee ?)
 		menuNouvelAlbum.setOnAction((event) -> {
@@ -123,7 +129,7 @@ public class WindowControler {
 			}
 		});
 
-		this.setCurrentImage(null);
+		this.setCurrentPageImage(null);
 	}
 
 	private void importPictures(){
@@ -133,7 +139,7 @@ public class WindowControler {
 
 
 	/**
-	 * Ajoute des images dans le panneau de droite grace au DataViwerController.
+	 * Ajoute des images dans le panneau de droite grace au DataViewerController.
 	 * @param pictures - Les images a ajouter
 	 */
 	private void addPicturesToViewer(Picture... pictures)
@@ -141,7 +147,19 @@ public class WindowControler {
 		this.datac.addPicturesToViewer(flowPaneImages, boutonAjoutImagePage, pictures);
 	}
 
-	public void setCurrentImage(ImageView source) {
+	public void setAddButtonActive(boolean b){
+		boutonAjoutImagePage.setDisable(!b);
+	}
+
+	/**
+	 * Ajoute une nouvelle Picture dans la page a partir de l'ImageView qui est en focus dans le panneau de droite
+	 */
+	private void addCurrentViewerImageToPage() {
+		this.albumc.addPictureToPage(datac.getCurrentViewerImage(), imagepane.getWidth() / 2, imagepane.getHeight() / 2);
+		this.albumc.setCurrentPageOnPane(imagepane);
+	}
+
+	public void setCurrentPageImage(ImageView source) {
 		albumc.setCurrentImage(source);
 		// Il faudra aussi changer toutes les prop du pane de gauche en conséquence
 

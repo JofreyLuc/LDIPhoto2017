@@ -48,9 +48,27 @@ public class AlbumControler {
 		}
 	}
 
+	public void setCurrentPageOnPane(Pane p) {
+		Page pg = album.getPage(current_page);
+		for(Picture pi : pg.getPictures())
+		{
+			ImageView iv = new ImageView(pi.getImage());
+			p.getChildren().add(iv);
+			iv.setX(pi.x);
+			iv.setY(pi.y);
+			iv.setOnMousePressed(new OnClickImage(this));
+			iv.setOnMouseDragged(new OnDragImage(this));
+
+		}
+	}
+
+	public void addPictureToPage(ImageView iv, double x, double y) {
+		Picture p = new Picture(iv.getImage(), x, y);
+		album.getPage(current_page).addPicture(p);
+	}
 
 	public void onChangeCurrentImage(ImageView source) {
-		this.windowControler.setCurrentImage(source);
+		this.windowControler.setCurrentPageImage(source);
 	}
 
 
@@ -75,7 +93,7 @@ public class AlbumControler {
 			this.current_image.setX(Math.min(Math.max(0,x), windowControler.getPaneWidth()-current_image.getImage().getWidth()));
 			this.current_image.setY(Math.min(Math.max(0,y), windowControler.getPaneHeight()-current_image.getImage().getHeight()));
 			this.windowControler.setCoordField(this.current_image.getX(), this.current_image.getY());
-			
+
 		}
 
 	}
@@ -84,6 +102,6 @@ public class AlbumControler {
 	public void resizeImage(double value) {
 		this.current_image.setScaleX(value/100);
 		this.current_image.setScaleY(value/100);
-		
+
 	}
 }

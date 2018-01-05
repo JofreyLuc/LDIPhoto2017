@@ -32,8 +32,18 @@ public class DataViewerController {
 	/* A BOUGER ? */
 	private final static int PICTURE_SIZE = 100;
 
-	public DataViewerController() {
+	private ImageView currentViewerImage;
 
+	private WindowControler windowc;
+
+	//TODO : Utiliser une liste de Pictures du modele ? Dans l'album ?
+
+	public DataViewerController() {
+		currentViewerImage = null;
+	}
+
+	public void setWindowControler(WindowControler w) {
+		windowc = w;
 	}
 
 	/**
@@ -55,18 +65,29 @@ public class DataViewerController {
 	public void addPicturesToViewer(FlowPane fp, Button b, Picture... pictures){
 		for (Picture p : pictures) {
 			ImageView newPic = new ImageView(p.getImage());
-			newPic.setFocusTraversable(true);
 
-
-			//TODO : Bouger ça dans une classe ?
-			newPic.setOnMouseClicked((event) -> {
-				newPic.requestFocus();
-			});
-
-			newPic.focusedProperty().addListener(new OnFocusImageViewerRight(newPic, b));
+			newPic.setOnMouseClicked(new OnFocusImageViewerRight(newPic, this));
 
 			this.resizeToThumbnail(newPic);
 			fp.getChildren().add(newPic);
+		}
+	}
+
+	public ImageView getCurrentViewerImage(){
+		return currentViewerImage;
+	}
+
+	public void setCurrentViewerImage(ImageView iv) {
+		if (this.currentViewerImage != null) {
+			this.currentViewerImage.setOpacity(1);
+	    	this.currentViewerImage.setRotate(0);
+	    	windowc.setAddButtonActive(false);
+		}
+		this.currentViewerImage = iv;
+		if (this.currentViewerImage != null) {
+			this.currentViewerImage.setOpacity(.5);
+	    	this.currentViewerImage.setRotate(25);
+	    	windowc.setAddButtonActive(true);
 		}
 	}
 
@@ -86,6 +107,7 @@ public class DataViewerController {
 	 * @param pages - Le nouvel ensemble de pages a afficher
 	 */
 	public void refreshPagesView(FlowPane fp, Page... pages) {
+		//TODO : Mettre le rectangle blanc de la page
 		fp.getChildren().clear();
 		for (Page p : pages){
 			Pane pagePane = new Pane();

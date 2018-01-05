@@ -20,6 +20,7 @@ public class Main extends Application {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/test.fxml"));
 			loader.setController(new WindowControler(albumc, datac));
 			VBox root = loader.load();
+
 			Scene scene = new Scene(root,1024,768);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);

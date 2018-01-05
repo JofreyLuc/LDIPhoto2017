@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.io.File;
 
 import javafx.scene.image.Image;
+import javafx.scene.image.WritableImage;
 
 public class Picture {
 
@@ -15,6 +16,15 @@ public class Picture {
 	public Picture(String i, double x, double y)
 	{
 		this.image = new Image(i);
+		this.x=x;
+		this.y=y;
+		this.borderWidth = 0;
+		this.borderColor = null;
+	}
+
+	public Picture(Image i, double x, double y)
+	{
+		this.image = new WritableImage(i.getPixelReader(), (int)i.getWidth(), (int)i.getHeight());
 		this.x=x;
 		this.y=y;
 		this.borderWidth = 0;
@@ -40,5 +50,5 @@ public class Picture {
 		this.borderColor = color;
 	}
 
-	
+
 }
