@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ColorPicker?>
@@ -25,73 +26,6 @@
 <VBox prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
   <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-         <left>
-            <Accordion maxWidth="200.0" minWidth="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-              <panes>
-                <TitledPane animated="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Dimensions de l'image">
-                     <content>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <HBox prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" minHeight="-Infinity" minWidth="-Infinity" text="Abscisse" />
-                                    <TextField fx:id="fieldX" alignment="CENTER_RIGHT" minHeight="18.0" minWidth="25.0" prefHeight="18.0" prefWidth="81.0" text="0" />
-                                 </children>
-                              </HBox>
-                              <HBox prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" minHeight="-Infinity" minWidth="-Infinity" text="Ordonnée" />
-                                    <TextField fx:id="fieldY" alignment="CENTER_RIGHT" minHeight="18.0" minWidth="25.0" prefHeight="18.0" prefWidth="80.0" text="0" />
-                                 </children>
-                              </HBox>
-                              <Separator prefWidth="200.0" />
-                              <HBox prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" minHeight="-Infinity" minWidth="-Infinity" text="Redimensionner" />
-                                    <Slider fx:id="scaleDimension" min="10.0" value="100.0" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                     </content>
-                </TitledPane>
-                <TitledPane animated="false" text="Cadre de l'image">
-                     <content>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <HBox prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" minHeight="18.0" minWidth="-Infinity" prefHeight="18.0" text="Taille" />
-                                    <TextField fx:id="fieldborderWidth" />
-                                 </children>
-                              </HBox>
-                              <HBox prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" minHeight="-Infinity" minWidth="-Infinity" text="Couleur" />
-                                    <ColorPicker fx:id="borderColorPicker" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                     </content>
-                </TitledPane>
-                  <TitledPane animated="false" text="Légende">
-                     <content>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <HBox prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" minHeight="18.0" minWidth="-Infinity" prefHeight="18.0" text="Texte" />
-                                    <TextField fx:id="fieldLegende" alignment="CENTER_RIGHT" minHeight="18.0" minWidth="25.0" prefHeight="18.0" prefWidth="141.0" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                     </content>
-                  </TitledPane>
-              </panes>
-            </Accordion>
-         </left>
          <right>
             <TabPane fx:id="tabPaneViewer" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
               <tabs>
@@ -157,6 +91,105 @@
          <center>
             <Pane fx:id="imagepane" maxHeight="600.0" maxWidth="450.0" minHeight="600.0" minWidth="450.0" prefHeight="600.0" prefWidth="450.0" style="-fx-background-color: rgb(255,255,255); -fx-border-color: rgb(0,0,0);" BorderPane.alignment="CENTER" />
          </center>
+         <left>
+            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="deleteButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="271.0" style="-fx-background-radius: 40 40 40 40;" text="Supprimer image">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Accordion maxWidth="200.0" minWidth="200.0" prefWidth="200.0">
+                    <panes>
+                      <TitledPane animated="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Dimensions de l'image">
+                           <content>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="17.0" prefWidth="70.0" text="Abscisse">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <TextField fx:id="fieldX" alignment="CENTER_RIGHT" minHeight="20.0" minWidth="25.0" prefHeight="20.0" prefWidth="116.0" text="0" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="17.0" prefWidth="70.0" text="Ordonnée">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <TextField fx:id="fieldY" alignment="CENTER_RIGHT" minHeight="20.0" minWidth="25.0" prefHeight="20.0" prefWidth="116.0" text="0" />
+                                       </children>
+                                    </HBox>
+                                    <Separator prefWidth="200.0" />
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" minHeight="-Infinity" minWidth="-Infinity" text="Redimensionner" />
+                                          <Slider fx:id="scaleDimension" min="10.0" value="100.0" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </content>
+                      </TitledPane>
+                      <TitledPane animated="false" text="Cadre de l'image">
+                           <content>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" minHeight="18.0" minWidth="-Infinity" prefHeight="18.0" prefWidth="70.0" text="Taille">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <TextField fx:id="fieldborderWidth" minHeight="20.0" minWidth="25.0" prefHeight="20.0" prefWidth="116.0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="17.0" prefWidth="70.0" text="Couleur">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <ColorPicker fx:id="borderColorPicker" minWidth="25.0" prefWidth="116.0" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </content>
+                      </TitledPane>
+                        <TitledPane animated="false" text="Légende">
+                           <content>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" minHeight="18.0" minWidth="-Infinity" prefHeight="18.0" prefWidth="70.0" text="Texte">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <TextField fx:id="fieldLegende" alignment="CENTER_RIGHT" minHeight="20.0" minWidth="25.0" prefHeight="20.0" prefWidth="116.0" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </content>
+                        </TitledPane>
+                    </panes>
+                  </Accordion>
+               </children>
+            </VBox>
+         </left>
       </BorderPane>
   </children>
 </VBox>

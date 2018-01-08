@@ -30,7 +30,7 @@ public class Main extends Application {
 			primaryStage.setMinHeight(150);
 			primaryStage.show();
 		} catch(Exception e) {
-			e.printStackTrace();
+			e.printStackTrace(); 
 		}
 	}
 
