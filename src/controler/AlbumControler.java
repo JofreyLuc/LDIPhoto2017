@@ -184,10 +184,17 @@ public class AlbumControler {
 			this.windowControler.setColorPicker(this.album.getPage(this.current_page).getPictures().get(place_image).getBorderColor());
 			this.changeLegende(this.current_image);
 			this.windowControler.setdeleteButtonEnabled(true);
+			this.windowControler.setscaleDimensionEnabled(true);
 
 		}
 		else
+		{
 			this.windowControler.setdeleteButtonEnabled(false);
+			this.windowControler.setfieldLegende("");
+			this.windowControler.setscaleDimensionEnabled(false);
+			this.windowControler.setCoordField(0, 0);
+			
+		}
 	}
 
 /**
@@ -261,10 +268,12 @@ public class AlbumControler {
 
 	public void changeBordureColor(Color c)
 	{
+		if(current_image!=null){
 		int place_image = this.images.indexOf(this.current_image);
 		Picture pi = this.album.getPage(this.current_page).getPictures().get(place_image);
 		pi.applyBorder(pi.getBorderWidth(), c);
 		this.changeBordure(current_image);
+		}
 	}
 
 	public void changeLegende(String newValue) {
@@ -274,11 +283,14 @@ public class AlbumControler {
 		pi.setLegende(newValue);
 		this.changeLegende(current_image);
 		}
+		else
+			this.windowControler.setfieldLegende("");
 
 	}
 
 	public void changeLegende(ImageView img)
 	{
+		if(current_image!=null){
 		int place_image = this.images.indexOf(img);
 		Picture pi = this.album.getPage(this.current_page).getPictures().get(place_image);
 		VBox parent = ((VBox)img.getParent());
@@ -298,9 +310,13 @@ public class AlbumControler {
 		if(pi.getLegende().equals(""))
 		{
 			parent.getChildren().remove(1);
+			this.windowControler.setfieldLegende("");
 		}
 		else
 			this.windowControler.setfieldLegende(pi.getLegende());
+		}
+		else
+			this.windowControler.setfieldLegende("");
 	}
 
 	public void deleteCurrentImage(Pane p) {

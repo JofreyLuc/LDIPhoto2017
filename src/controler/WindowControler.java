@@ -149,7 +149,7 @@ public class WindowControler {
 			try{
 				new_double = Double.parseDouble(newValue);
 
-			}catch(NumberFormatException e ){
+			}catch(Exception e){
 				new_double = 0;
 				this.fieldX.setText("0");
 			}
@@ -163,7 +163,7 @@ public class WindowControler {
 			try{
 				new_double = Double.parseDouble(newValue);
 
-			}catch(NumberFormatException e ){
+			}catch(Exception e ){
 				new_double = 0;
 				this.fieldY.setText("0");
 			}
@@ -197,7 +197,7 @@ public class WindowControler {
 			try{
 				new_double = Double.parseDouble(newValue);
 
-			}catch(NumberFormatException e ){
+			}catch(Exception e ){
 				new_double = 0;
 				this.fieldborderWidth.setText("0");
 			}
@@ -356,6 +356,10 @@ public class WindowControler {
 	
 	public void setdeleteButtonEnabled(boolean b){
 		this.deleteButton.setDisable(!b);
+	}
+	
+	public void setscaleDimensionEnabled(boolean b){
+		this.scaleDimension.setDisable(!b);
 	}
 
 
