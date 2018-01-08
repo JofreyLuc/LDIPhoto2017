@@ -1,25 +1,17 @@
 package controler;
 
 import java.io.File;
-import java.util.ArrayList;
-
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
-import model.Page;
 import model.Picture;
 
 
@@ -216,6 +208,7 @@ public class WindowControler {
 
 	private void addNewPage() {
 		albumc.addNewPage();
+		albumc.setPageOnPane(imagepane, albumc.getNbPages());
 		datac.refreshPagesView(flowPanePages, albumc.getPages());
 		refreshNavButtonsState();
 	}
@@ -223,11 +216,13 @@ public class WindowControler {
 	private void goToNextPage() {
 		albumc.setPageOnPane(imagepane, albumc.current_page + 1);
 		refreshNavButtonsState();
+		datac.refreshPagesView(flowPanePages, albumc.getPages());
 	}
 
 	private void goToPreviousPage() {
 		albumc.setPageOnPane(imagepane, albumc.current_page - 1);
 		refreshNavButtonsState();
+		datac.refreshPagesView(flowPanePages, albumc.getPages());
 	}
 
 	private void refreshNavButtonsState() {
