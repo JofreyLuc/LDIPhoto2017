@@ -264,10 +264,12 @@ public class AlbumControler {
 	}
 
 	public void changeLegende(String newValue) {
+		if(current_image!=null){
 		int place_image = this.images.indexOf(this.current_image);
 		Picture pi = this.album.getPage(this.current_page).getPictures().get(place_image);
 		pi.setLegende(newValue);
 		this.changeLegende(current_image);
+		}
 
 	}
 
