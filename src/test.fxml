@@ -55,7 +55,7 @@
                         </VBox>
                      </content>
                 </TitledPane>
-                <TitledPane animated="false" text="Bordure de l'image">
+                <TitledPane animated="false" text="Cadre de l'image">
                      <content>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
@@ -82,7 +82,7 @@
                               <HBox prefHeight="100.0" prefWidth="200.0">
                                  <children>
                                     <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" minHeight="18.0" minWidth="-Infinity" prefHeight="18.0" text="Texte" />
-                                    <TextField alignment="CENTER_RIGHT" minHeight="18.0" minWidth="25.0" prefHeight="18.0" prefWidth="141.0" />
+                                    <TextField fx:id="fieldLegende" alignment="CENTER_RIGHT" minHeight="18.0" minWidth="25.0" prefHeight="18.0" prefWidth="141.0" />
                                  </children>
                               </HBox>
                            </children>

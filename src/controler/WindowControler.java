@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
@@ -15,6 +16,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.paint.Color;
 import model.Page;
 import model.Picture;
 
@@ -56,6 +58,12 @@ public class WindowControler {
 
 	@FXML // Bouton permettant l'ajout d'une image dans la page actuelle
 	private Button boutonAjoutImagePage;
+	
+	@FXML
+	private ColorPicker borderColorPicker;
+	
+	@FXML
+	private TextField fieldLegende;
 
 	// Controleurs
 	private AlbumControler albumc;
@@ -174,14 +182,20 @@ public class WindowControler {
 				this.fieldborderWidth.setText("0");
 			}
 			if(new_double<0)
-			{
+			{ 
 				new_double=0;
 				this.fieldborderWidth.setText("0");
 			}
 			
 			this.albumc.changeBordureWidth(new_double);
-			
+			 
 		});
+		
+		this.fieldLegende.textProperty().addListener((observable, oldValue, newValue) -> {
+			albumc.changeLegende(newValue);
+		});
+		
+		this.borderColorPicker.setOnAction(e -> albumc.changeBordureColor(borderColorPicker.getValue()));
 
 		this.setCurrentPageImage(null);
 	}
@@ -218,6 +232,7 @@ public class WindowControler {
 	public void setCurrentPageImage(ImageView source) {
 		albumc.setCurrentImage(source);
 		// TODO: Changer toutes les prop du pane de gauche en conséquence
+		
 
 		
 		if(source!=null)
@@ -269,6 +284,15 @@ public class WindowControler {
 
 	public void setBorderWidth(int i) {
 		this.fieldborderWidth.setText(""+i);
+		
+	}
+
+	public void setColorPicker(Color borderColor) {
+		this.borderColorPicker.setValue(borderColor);
+	}
+
+	public void setfieldLegende(String legende) {
+		this.fieldLegende.setText(legende);
 		
 	}
 
