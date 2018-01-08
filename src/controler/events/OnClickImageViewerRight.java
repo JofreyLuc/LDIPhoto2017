@@ -12,7 +12,7 @@ import javafx.scene.input.MouseEvent;
  * Ecouteur gerant le changement de focus des images du panneau de droite, pour savoir sur quelle image l'on vient de cliquer
  * @author Jofrey
  */
-public class OnFocusImageViewerRight implements EventHandler<MouseEvent> {
+public class OnClickImageViewerRight implements EventHandler<MouseEvent> {
 
 	/**
 	 * ImageView contenant l'image (gagnera/perdre le style de focus)
@@ -21,7 +21,7 @@ public class OnFocusImageViewerRight implements EventHandler<MouseEvent> {
 
 	private DataViewerController datac;
 
-	public OnFocusImageViewerRight(ImageView i, DataViewerController d) {
+	public OnClickImageViewerRight(ImageView i, DataViewerController d) {
 		this.img = i;
 		datac = d;
 	}

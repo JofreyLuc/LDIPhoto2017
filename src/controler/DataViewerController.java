@@ -2,11 +2,12 @@ package controler;
 
 import java.io.File;
 
-import controler.events.OnFocusImageViewerRight;
+import controler.events.OnClickImageViewerRight;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -66,7 +67,7 @@ public class DataViewerController {
 		for (Picture p : pictures) {
 			ImageView newPic = new ImageView(p.getImage());
 
-			newPic.setOnMouseClicked(new OnFocusImageViewerRight(newPic, this));
+			newPic.setOnMouseClicked(new OnClickImageViewerRight(newPic, this));
 
 			this.resizeToThumbnail(newPic);
 			fp.getChildren().add(newPic);
@@ -101,18 +102,31 @@ public class DataViewerController {
 		return fp.getChildren().remove(toRemove);
 	}
 
+	private void resizePaneToThumbnail(Pane p){
+		double width = p.getPrefWidth(), height = p.getPrefHeight();
+		double coeff = PICTURE_SIZE / Math.max(width, height);
+		p.setPrefWidth(width * coeff);
+		p.setPrefHeight(height * coeff);
+		for (Node n : p.getChildren()){
+			double ivWidth = ((ImageView)n).getImage().getWidth(), ivHeight = ((ImageView)n).getImage().getHeight();
+			((ImageView)n).setFitWidth(ivWidth * coeff);
+			((ImageView)n).setFitHeight(ivHeight * coeff);
+			((ImageView)n).setX(((ImageView)n).getX() * coeff);
+			((ImageView)n).setY(((ImageView)n).getY() * coeff);
+		}
+	}
+
 	/**
 	 * Supprime la liste des pages et en affiche une nouvelle
 	 * @param fp - Le panneau de l'onglet images
 	 * @param pages - Le nouvel ensemble de pages a afficher
 	 */
 	public void refreshPagesView(FlowPane fp, Page... pages) {
-		//TODO : Mettre le rectangle blanc de la page
 		fp.getChildren().clear();
 		for (Page p : pages){
 			Pane pagePane = new Pane();
 			pagePane.setPrefSize(450, 600);
-			pagePane.getStylesheets().add("-fx-background-color: white");
+			pagePane.setStyle("-fx-background-color: white;");
 			for(Picture pi : p.getPictures())
 			{
 				ImageView iv = new ImageView(pi.getImage());
@@ -120,10 +134,8 @@ public class DataViewerController {
 				iv.setX(pi.x);
 				iv.setY(pi.y);
 			}
-			WritableImage snapshot = pagePane.snapshot(new SnapshotParameters(), null);
-			ImageView pagePreview = new ImageView(snapshot);
-			this.resizeToThumbnail(pagePreview);
-			fp.getChildren().add(pagePreview);
+			resizePaneToThumbnail(pagePane);
+			fp.getChildren().add(pagePane);
 		}
 	}
 
