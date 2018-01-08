@@ -37,22 +37,26 @@ public class AlbumControler {
 	ImageView current_image;
 
 	/**
-	 * Controleur
+	 * Controleur de la fenêtre
 	 */
 	WindowControler windowControler;
 
 
 	/**
-	 * Modèle associé
+	 * Modèle associé au contrôleur
 	 */
 	public Album album;
 
+	/**
+	 * Constructeur du contrôleur
+	 */
 	public AlbumControler()
 	{
 		album = new Album();
 		current_page=1;
 
 		// Pour le test, on ajoute des photos dans la page 1
+		/*
 		Picture pi = new Picture(new File("./resources/img.jpg").toURI().toString(),5,5);
 		pi.setLegende("Hola");
 		pi.applyBorder(50, new Color(0, 0.5, 0.5,1));
@@ -60,22 +64,37 @@ public class AlbumControler {
 		album.getPage(1).addPicture(pi);
 
 		album.getPage(1).addPicture(new Picture(new File("./resources/img.jpg").toURI().toString(),150,10));
+		*/
+		
 		images = new ArrayList<>();
-
 	}
 
+	/**
+	 * Getter
+	 * @return La liste des pages de l'album
+	 */
 	public ArrayList<Page> getPages(){
 		return album.getPages();
 	}
 
+	/**
+	 * Getter
+	 * @return Le nombre de pages de l'album
+	 */
 	public int getNbPages(){
 		return album.getPages().size();
 	}
 
+	/**
+	 * Ajoute une nouvelle page à l'album
+	 */
 	public void addNewPage(){
 		album.addNewPage();
 	}
 
+	/**
+	 * Créé un nouvel Album lié au contrôleur
+	 */
 	public void newAlbum(){
 		album = new Album();
 		current_page=1;
@@ -84,9 +103,11 @@ public class AlbumControler {
 		windowControler.setCurrentPageImage(null);
 	}
 
-/**
- * Change la page selectionnée dans le panneau central
- */
+	/**
+	 * Change la page selectionnée dans le panneau central
+	 * @param p Panneau sur lequel la page doit être appliquée
+	 * @param num_page Page de l'album qui doit être appliquée sur le panneau
+	 */
 	public void setPageOnPane(Pane p, int num_page)
 	{
 		p.getChildren().clear();
@@ -102,38 +123,34 @@ public class AlbumControler {
 		}
 	}
 
-
 	/**
 	 * Ajoute une image au panneau central
+	 * @param pic Image à ajouter
+	 * @param p Panne sur lequel l'image doit être ajoutée
 	 */
 	private void addPictureToPane(Picture pic, Pane p){
 		ImageView iv = new ImageView(pic.getImage());
 		images.add(iv);
 		VBox box = new VBox();
 		box.getChildren().add(iv);
-		//Label lab = new Label("Coucou");
-		//box.getChildren().add(lab);
 		p.getChildren().add(box);
-		//iv.setX(pic.x);
 		iv.getParent().setLayoutX(pic.x);
 		iv.getParent().setLayoutY(pic.y);
 		iv.setFitHeight(iv.getImage().getHeight()*pic.getScale());
 		iv.setPreserveRatio(true);
 
-
 		this.changeBordure(iv);
 		this.changeLegende(iv);
 		box.setOnMousePressed(new OnClickImage(this));
 		box.setOnMouseDragged(new OnDragImage(this));
-
-		// Test CSS bordure
-		//iv.getParent().setStyle("-fx-border-color: rgb(255,0,0);"+ "-fx-border-width: 1;");
-
-
 	}
 
 	/**
-	 * Ajoute l'image à la page
+	 * Ajoute une image à une page
+	 * @param iv Image à ajouter
+	 * @param x Abscisse où ajouter l'image
+	 * @param y Ordonnée où ajouter l'image
+	 * @param imagepane Panneau sur lequel ajouter l'image
 	 */
 	public void addPictureToPage(ImageView iv, double x, double y, Pane imagepane) {
 		Image newImage = new WritableImage(iv.getImage().getPixelReader(), (int)iv.getImage().getWidth(), (int)iv.getImage().getHeight());
@@ -154,19 +171,27 @@ public class AlbumControler {
 
 	}
 
+	/**
+	 * Cette fonction est appelée par l'event OnClickImage
+	 * @param source L'ImageView source de l'event
+	 */
 	public void onChangeCurrentImage(ImageView source) {
 		this.windowControler.setCurrentPageImage(source);
 	}
 
-
+	/**
+	 * Setter - Change le windowControler lié à ce contrôleur
+	 * @param windowControler Le nouveau windowControler
+	 */
 	public void setWindowControler(WindowControler windowControler) {
 		this.windowControler = windowControler;
 
 	}
 
-/**
- * Change l'image selectionnée dans le panneau central
- */
+	/**
+	 * Change l'image courrament selectionnée. Cette fonction doit être appelée quand un utilisateur change l'image selectionnée, ou la supprime
+	 * @param source La nouvelle image
+	 */
 	public void setCurrentImage(ImageView source) {
 		if(this.current_image!=null)
 			this.current_image.setOpacity(1);
@@ -199,9 +224,11 @@ public class AlbumControler {
 		}
 	}
 
-/**
- * Déplace l'image selectionnée aux coordonnées indiquées
- */
+	/**
+	 * Déplace l'image selectionnée aux coordonnées indiquées
+	 * @param x Abscisse
+	 * @param y Ordonnée
+	 */
 	public void moveCurrentImage(double x, double y) {
 		if(current_image!=null)
 		{
@@ -211,42 +238,37 @@ public class AlbumControler {
 			this.current_image.getParent().setLayoutX(Math.min(Math.max(1,x), windowControler.getPaneWidth()-current_image.getParent().getBoundsInParent().getWidth()-1));
 			this.current_image.getParent().setLayoutY(Math.min(Math.max(1,y), windowControler.getPaneHeight()-current_image.getParent().getBoundsInParent().getHeight()-1));
 
-
-			// this.current_image.getParent().getLayoutBounds().getMinX()
-
 			// On modifie les coordonnées de la Picture associée
-
-			//this.album.getPage(this.current_page).getPictures().get(place_image).x = this.current_image.getX();
-			//this.album.getPage(this.current_page).getPictures().get(place_image).y = this.current_image.getY();
 			this.album.getPage(this.current_page).getPictures().get(place_image).x = this.current_image.getParent().getLayoutX();
 			this.album.getPage(this.current_page).getPictures().get(place_image).y = this.current_image.getParent().getLayoutY();
 
 			//On change les valeurs des fields
 			this.windowControler.setCoordField(this.album.getPage(this.current_page).getPictures().get(place_image).x, this.album.getPage(this.current_page).getPictures().get(place_image).y);
-
-
 		}
 
 	}
 
-/**
- * Re-scale l'image selectionnée
- */
-	public void resizeImage(double value) {
-		//this.current_image.setScaleX(value/100);
-		//this.current_image.setScaleY(value/100);
-		this.current_image.setFitHeight(this.current_image.getImage().getHeight()*value/100);
 
-		// On enregistre le scale dans Picture pour une réutilisation postérieure
+	/**
+	 * Redimensionne l'image selectionnée
+	 * @param value La nouvelle échelle de l'image. Cette échelle est comprise en 0 et 100, et correspond au pourcentage par rapport à la taille initiale de l'image
+	 */
+	public void resizeImage(double value) {
+		this.current_image.setFitHeight(this.current_image.getImage().getHeight()*value/100);
+		
+		// Modèle
 		int place_image = this.images.indexOf(this.current_image);
 		this.album.getPage(this.current_page).getPictures().get(place_image).setScale(value/100);
 		this.moveCurrentImage(this.album.getPage(this.current_page).getPictures().get(place_image).x, this.album.getPage(this.current_page).getPictures().get(place_image).y);
 
 	}
 
+	/**
+	 * Change le type de bordure d'une image. 
+	 * @param img Image à laquelle sera appliquée la modification
+	 */
 	public void changeBordure(ImageView img)
 	{
-		//TODO: Faire une methode pour retourner ca, j'ia l'impression de l'avoir cc souvent ?
 		int place_image = this.images.indexOf(img);
 		Picture pi = this.album.getPage(this.current_page).getPictures().get(place_image);
 		if(pi.getBorderWidth()>=1 && pi.getBorderColor()!=null)
@@ -255,6 +277,10 @@ public class AlbumControler {
 			img.getParent().setStyle("");
 	}
 
+	/**
+	 * Change l'épaisseur du cadre de l'image selectionnée
+	 * @param d Nouvelle épaisseur du cadre de l'image
+	 */
 	public void changeBordureWidth(double d) {
 		if(current_image!=null)
 		{
@@ -268,6 +294,10 @@ public class AlbumControler {
 		}
 	}
 
+	/**
+	 * Change la couleur du cadre de l'image selectionnée
+	 * @param c Nouvelle couleur du cadre de l'image
+	 */
 	public void changeBordureColor(Color c)
 	{
 		if(current_image!=null){
@@ -278,18 +308,26 @@ public class AlbumControler {
 		}
 	}
 
+	/**
+	 * Change la valeur de la légende de l'image selectionnée (dans le modèle)
+	 * @param newValue Nouvelle légende de l'image selectionnée
+	 */
 	public void changeLegende(String newValue) {
 		if(current_image!=null){
-		int place_image = this.images.indexOf(this.current_image);
-		Picture pi = this.album.getPage(this.current_page).getPictures().get(place_image);
-		pi.setLegende(newValue);
-		this.changeLegende(current_image);
+			int place_image = this.images.indexOf(this.current_image);
+			Picture pi = this.album.getPage(this.current_page).getPictures().get(place_image);
+			pi.setLegende(newValue);
+			this.changeLegende(current_image);
 		}
 		else
 			this.windowControler.setfieldLegende("");
 
 	}
 
+	/**
+	 * Change la valeur de la légende de l'image passée en paramètre (dans la vue)
+	 * @param img ImageView concernée par le changement de valeur
+	 */
 	public void changeLegende(ImageView img)
 	{
 		if(current_image!=null){
@@ -321,6 +359,10 @@ public class AlbumControler {
 			this.windowControler.setfieldLegende("");
 	}
 
+	/**
+	 * Supprime l'image selectionnée de l'album
+	 * @param p Le panneau concerné par cette suppression
+	 */
 	public void deleteCurrentImage(Pane p) {
 		p.getChildren().remove(this.current_image.getParent());
 		int place_image = this.images.indexOf(this.current_image);

@@ -14,14 +14,23 @@ import javafx.scene.layout.VBox;
  */
 public class OnDragImage implements EventHandler<MouseEvent> {
 
+	/**
+	 * Classe contrôleur liée à l'album
+	 */
 	AlbumControler a;
 
+	/**
+	 * Constructeur du EventHandler
+	 * @param a : Contrôleur lié à l'album
+	 */
 	public OnDragImage(AlbumControler a)
 	{
 		this.a=a;
 	}
 
-	@Override
+	/**
+	 * Gestionnaire de l'event
+	 */
 	public void handle(MouseEvent e) {
 		double w = ((BorderPane)((Pane)((VBox)e.getSource()).getParent()).getParent()).getWidth()/2 -((Pane)((VBox)e.getSource()).getParent()).getWidth()/2;
 		double h = ((BorderPane)((Pane)((VBox)e.getSource()).getParent()).getParent()).getHeight()/2 -((Pane)((VBox)e.getSource()).getParent()).getHeight()/2;

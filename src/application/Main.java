@@ -10,9 +10,15 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 
-
+/**
+ * Main de l'application
+ *
+ */
 public class Main extends Application {
-	@Override
+	
+	/**
+	 * Fonction start - Composante javaFX
+	 */
 	public void start(Stage primaryStage) {
 		try {
 			AlbumControler albumc = new AlbumControler();
@@ -34,6 +40,10 @@ public class Main extends Application {
 		}
 	}
 
+	/**
+	 * Main de l'application
+	 * @param args Arguments habituels de la fonction main
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}

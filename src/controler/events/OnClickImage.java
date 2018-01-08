@@ -12,15 +12,24 @@ import javafx.scene.layout.VBox;
  */
 public class OnClickImage implements EventHandler<MouseEvent> {
 
+	/**
+	 * Classe contrôleur liée à l'album
+	 */
 	AlbumControler a;
+	
+	/**
+	 * Constructeur du EventHandler
+	 * @param a : Contrôleur lié à l'album
+	 */
 	public OnClickImage(AlbumControler a)
 	{
 		this.a=a;
 	}
 	
-	@Override
+	/**
+	 * Gestionnaire de l'event
+	 */
 	public void handle(MouseEvent e) {
-		// TODO Auto-generated method stub
 		this.a.onChangeCurrentImage((ImageView)((VBox)e.getSource()).getChildren().get(0));
 		
 	}
