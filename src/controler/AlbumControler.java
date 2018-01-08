@@ -185,6 +185,7 @@ public class AlbumControler {
 			this.changeLegende(this.current_image);
 			this.windowControler.setdeleteButtonEnabled(true);
 			this.windowControler.setscaleDimensionEnabled(true);
+			this.windowControler.setFieldsEnabled(true);
 
 		}
 		else
@@ -193,6 +194,7 @@ public class AlbumControler {
 			this.windowControler.setfieldLegende("");
 			this.windowControler.setscaleDimensionEnabled(false);
 			this.windowControler.setCoordField(0, 0);
+			this.windowControler.setFieldsEnabled(false);
 			
 		}
 	}

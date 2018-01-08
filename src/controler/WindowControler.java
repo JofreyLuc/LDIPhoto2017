@@ -145,6 +145,7 @@ public class WindowControler {
 		// Events sur changement des textFields
 
 		this.fieldX.textProperty().addListener((observable, oldValue, newValue) -> {
+			
 			double new_double;
 			try{
 				new_double = Double.parseDouble(newValue);
@@ -360,6 +361,14 @@ public class WindowControler {
 	
 	public void setscaleDimensionEnabled(boolean b){
 		this.scaleDimension.setDisable(!b);
+	}
+	
+	public void setFieldsEnabled(boolean b)
+	{
+		this.fieldX.setDisable(!b);
+		this.fieldY.setDisable(!b);
+		this.fieldLegende.setDisable(!b);
+		this.fieldborderWidth.setDisable(!b);
 	}
 
 
