@@ -70,6 +70,9 @@ public class WindowControler {
 
 	@FXML
 	private Button nextPage;
+	
+	@FXML
+	private Button deleteButton;
 
 	// Controleurs
 	private AlbumControler albumc;
@@ -213,6 +216,8 @@ public class WindowControler {
 		});
 
 		this.borderColorPicker.setOnAction(e -> albumc.changeBordureColor(borderColorPicker.getValue()));
+		
+		this.deleteButton.setOnAction(e -> albumc.deleteCurrentImage(imagepane));
 
 		this.setCurrentPageImage(null);
 
@@ -347,6 +352,10 @@ public class WindowControler {
 	public void setfieldLegende(String legende) {
 		this.fieldLegende.setText(legende);
 
+	}
+	
+	public void setdeleteButtonEnabled(boolean b){
+		this.deleteButton.setDisable(!b);
 	}
 
 

@@ -183,8 +183,11 @@ public class AlbumControler {
 			this.windowControler.setBorderWidth(this.album.getPage(this.current_page).getPictures().get(place_image).getBorderWidth());
 			this.windowControler.setColorPicker(this.album.getPage(this.current_page).getPictures().get(place_image).getBorderColor());
 			this.changeLegende(this.current_image);
+			this.windowControler.setdeleteButtonEnabled(true);
 
 		}
+		else
+			this.windowControler.setdeleteButtonEnabled(false);
 	}
 
 /**
@@ -298,5 +301,13 @@ public class AlbumControler {
 		}
 		else
 			this.windowControler.setfieldLegende(pi.getLegende());
+	}
+
+	public void deleteCurrentImage(Pane p) {
+		p.getChildren().remove(this.current_image.getParent());
+		int place_image = this.images.indexOf(this.current_image);
+		this.album.getPage(this.current_page).getPictures().remove(place_image);
+		this.images.remove(place_image);
+		this.setCurrentImage(null);
 	}
 }
