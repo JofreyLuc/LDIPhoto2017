@@ -23,7 +23,7 @@ public class Main extends Application {
 			loader.setController(new WindowControler(albumc, datac, menuc));
 			VBox root = loader.load();
 
-			Scene scene = new Scene(root,1024,768);
+			Scene scene = new Scene(root,1000,700);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);

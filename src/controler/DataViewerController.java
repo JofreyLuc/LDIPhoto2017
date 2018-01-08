@@ -73,7 +73,12 @@ public class DataViewerController {
 			newPic.setOnMouseClicked(new OnClickImageViewerRight(newPic, this));
 
 			this.resizeToThumbnail(newPic);
-			fp.getChildren().add(newPic);
+
+			VBox box = new VBox();
+			box.setAlignment(Pos.CENTER);
+			box.getChildren().add(newPic);
+
+			fp.getChildren().add(box);
 		}
 	}
 
@@ -83,15 +88,13 @@ public class DataViewerController {
 
 	public void setCurrentViewerImage(ImageView iv) {
 		if (this.currentViewerImage != null) {
-			this.currentViewerImage.setOpacity(1);
-	    	this.currentViewerImage.setRotate(0);
+			currentViewerImage.getParent().setStyle("-fx-border-color: gray; -fx-border-width: 0;");
 	    	windowc.setAddButtonActive(false);
 		}
 		this.currentViewerImage = iv;
 		if (this.currentViewerImage != null) {
-			this.currentViewerImage.setOpacity(.5);
-	    	this.currentViewerImage.setRotate(25);
-	    	windowc.setAddButtonActive(true);
+			currentViewerImage.getParent().setStyle("-fx-border-color: gray; -fx-border-width: 3;");
+			windowc.setAddButtonActive(true);
 		}
 	}
 
@@ -112,12 +115,16 @@ public class DataViewerController {
 	 */
 	public void refreshPagesView(FlowPane fp, ArrayList<Page> pages) {
 		fp.getChildren().clear();
+		int pNumber = 0;
 		for (Page p : pages){
+			pNumber++;
 
 			Pane pagePane = new Pane();
-			Scene s = new Scene(pagePane);
+			Scene s = new Scene(pagePane); // Necessaire pour que le css soit applique
 			pagePane.setPrefSize(450, 600);
 			pagePane.setStyle("-fx-background-color: white;");
+
+			// Construction de la page
 			for(Picture pic : p.getPictures())
 			{
 				ImageView iv = new ImageView(pic.getImage());
@@ -141,10 +148,17 @@ public class DataViewerController {
 				l.setStyle("-fx-text-alignment: center;");
 
 			}
+			// Snapshot de la page et ajout
 			WritableImage snapshot = pagePane.snapshot(new SnapshotParameters(), null);
 			ImageView pagePreview = new ImageView(snapshot);
 			this.resizeToThumbnail(pagePreview);
-			fp.getChildren().add(pagePreview);
+
+			VBox vbox = new VBox();
+			Label no = new Label(Integer.toString(pNumber));
+			vbox.setAlignment(Pos.CENTER);
+			vbox.getChildren().addAll(pagePreview, no);
+
+			fp.getChildren().add(vbox);
 		}
 	}
 
