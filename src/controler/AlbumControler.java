@@ -228,6 +228,7 @@ public class AlbumControler {
 		// On enregistre le scale dans Picture pour une réutilisation postérieure
 		int place_image = this.images.indexOf(this.current_image);
 		this.album.getPage(this.current_page).getPictures().get(place_image).setScale(value/100);
+		this.moveCurrentImage(this.album.getPage(this.current_page).getPictures().get(place_image).x, this.album.getPage(this.current_page).getPictures().get(place_image).y);
 
 	}
 
