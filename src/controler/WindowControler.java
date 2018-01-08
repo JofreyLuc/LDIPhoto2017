@@ -70,6 +70,15 @@ public class WindowControler {
 	@FXML
 	private TextField fieldLegende;
 
+	@FXML
+	private TextField labelNoPage;
+
+	@FXML
+	private Button previousPage;
+
+	@FXML
+	private Button nextPage;
+
 	// Controleurs
 	private AlbumControler albumc;
 	private DataViewerController datac;
@@ -114,7 +123,7 @@ public class WindowControler {
 		});
 
 		menuNouvellePage.setOnAction((event) -> {
-			//addNewPage()
+			addNewPage();
 		});
 
 		menuAjoutImages.setOnAction((event) -> {
@@ -124,6 +133,14 @@ public class WindowControler {
 
 		tabPages.setOnSelectionChanged((event) -> {
 			datac.refreshPagesView(flowPanePages, albumc.getPages());
+		});
+
+		nextPage.setOnAction((event) -> {
+			goToNextPage();
+		});
+
+		previousPage.setOnAction((event) -> {
+			goToPreviousPage();
 		});
 
 		// Event sur pression du scaleDimension
@@ -187,12 +204,37 @@ public class WindowControler {
 		this.borderColorPicker.setOnAction(e -> albumc.changeBordureColor(borderColorPicker.getValue()));
 
 		this.setCurrentPageImage(null);
+
+		refreshNavButtonsState();
 	}
 
 	private void importPictures(){
 		addPicturesToViewer(menuc.selectImages(imagepane.getScene().getWindow()));
 	}
 
+	private void addNewPage() {
+		albumc.addNewPage();
+		datac.refreshPagesView(flowPanePages, albumc.getPages());
+		refreshNavButtonsState();
+	}
+
+	private void goToNextPage() {
+		albumc.setPageOnPane(imagepane, albumc.current_page + 1);
+		refreshNavButtonsState();
+	}
+
+	private void goToPreviousPage() {
+		albumc.setPageOnPane(imagepane, albumc.current_page - 1);
+		refreshNavButtonsState();
+	}
+
+	private void refreshNavButtonsState() {
+		int page = albumc.current_page;
+		int nbPages = albumc.getNbPages();
+		nextPage.setDisable(page == nbPages);
+		previousPage.setDisable(page == 1);
+		labelNoPage.setText(Integer.toString(page));
+	}
 
 	/**
 	 * Ajoute des images dans le panneau de droite grace au DataViewerController.

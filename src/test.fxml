@@ -128,9 +128,9 @@
          <bottom>
             <HBox alignment="BOTTOM_CENTER" prefHeight="3.0" prefWidth="640.0" BorderPane.alignment="BOTTOM_CENTER">
                <children>
-                  <Button mnemonicParsing="false" style="-fx-background-radius: 400 0 0 400;" text="&lt;" />
-                  <TextField alignment="CENTER" text="1" />
-                  <Button mnemonicParsing="false" style="-fx-background-radius: 0 400 400 0;" text="&gt;" />
+                  <Button fx:id="previousPage" mnemonicParsing="false" style="-fx-background-radius: 400 0 0 400;" text="&lt;" />
+                  <TextField fx:id="labelNoPage" alignment="CENTER" text="1" />
+                  <Button fx:id="nextPage" mnemonicParsing="false" style="-fx-background-radius: 0 400 400 0;" text="&gt;" />
                </children>
             </HBox>
          </bottom>

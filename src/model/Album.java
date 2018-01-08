@@ -14,6 +14,12 @@ public class Album {
 		pages.add(p);
 	}
 
+	public int addNewPage(){
+		Page p = new Page();
+		pages.add(p);
+		return pages.indexOf(p);
+	}
+
 
 	public Page getPage(int i){
 		return pages.get(i-1);

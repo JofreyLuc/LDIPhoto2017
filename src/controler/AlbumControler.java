@@ -68,6 +68,14 @@ public class AlbumControler {
 		return album.getPages();
 	}
 
+	public int getNbPages(){
+		return album.getPages().size();
+	}
+
+	public void addNewPage(){
+		album.addNewPage();
+	}
+
 	public void newAlbum(){
 		album = new Album();
 		current_page=1;
@@ -82,7 +90,10 @@ public class AlbumControler {
 	public void setPageOnPane(Pane p, int num_page)
 	{
 		p.getChildren().clear();
+		images.clear();
 		current_page=num_page;
+		current_image = null;
+		windowControler.setCurrentPageImage(null);
 
 		Page pg = album.getPage(num_page);
 		for(Picture pi : pg.getPictures())
@@ -90,6 +101,7 @@ public class AlbumControler {
 			this.addPictureToPane(pi, p);
 		}
 	}
+
 
 	/**
 	 * Ajoute une image au panneau central
