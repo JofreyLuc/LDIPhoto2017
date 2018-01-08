@@ -168,6 +168,26 @@ public class WindowControler {
 			this.albumc.moveCurrentImage(Double.parseDouble(this.fieldX.getText()), new_double);
 
 		});
+		
+		this.imagepane.setOnScroll((value)->{
+			if(albumc.current_image!=null){
+			int place_image = albumc.images.indexOf(albumc.current_image);
+			double scale = albumc.album.getPage(albumc.current_page).getPictures().get(place_image).getScale();
+			
+			if(value.getDeltaY()>0 )
+			{
+				scale=Math.max(scale-0.1,0.1);
+				
+			}
+			else
+			{
+				scale=Math.min(scale+0.1,1);
+			}
+			
+			this.albumc.resizeImage(scale*100);
+			setscalePaneValue(scale*100);
+			}
+			});
 
 		this.fieldborderWidth.textProperty().addListener((observable, oldValue, newValue) -> {
 			double new_double;
