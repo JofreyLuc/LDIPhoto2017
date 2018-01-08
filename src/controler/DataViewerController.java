@@ -30,14 +30,12 @@ public class DataViewerController {
 	/**
 	 *  Taille maximale des thumbnails des images dans la liste
 	 */
-	/* A BOUGER ? */
+	//TODO: A bouger ?
 	private final static int PICTURE_SIZE = 100;
 
 	private ImageView currentViewerImage;
 
 	private WindowControler windowc;
-
-	//TODO : Utiliser une liste de Pictures du modele ? Dans l'album ?
 
 	public DataViewerController() {
 		currentViewerImage = null;

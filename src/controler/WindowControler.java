@@ -49,7 +49,7 @@ public class WindowControler {
 
 	@FXML // TextField contenant l'ord. de l'image selectionnée dans le Pane de gauche
 	private TextField fieldY;
-	
+
 	@FXML // TextField contenant la largeur de l'image
 	private TextField fieldborderWidth;
 
@@ -58,10 +58,10 @@ public class WindowControler {
 
 	@FXML // Bouton permettant l'ajout d'une image dans la page actuelle
 	private Button boutonAjoutImagePage;
-	
+
 	@FXML
 	private ColorPicker borderColorPicker;
-	
+
 	@FXML
 	private TextField fieldLegende;
 
@@ -108,7 +108,6 @@ public class WindowControler {
 		/***TEST***/
 
 		//TODO : Rafraichissement du viewer des pages : on focus PagesTab ?
-		//TODO : Bouton d'ajout de l'image à la page : A bouger ?
 		boutonAjoutImagePage.setOnAction((event) -> {
 			addCurrentViewerImageToPage();
 		});
@@ -141,60 +140,60 @@ public class WindowControler {
 				resizeImage();
 			}
 		});
-		
+
 		// Events sur changement des textFields
-		
+
 		this.fieldX.textProperty().addListener((observable, oldValue, newValue) -> {
 			double new_double;
 			try{
 				new_double = Double.parseDouble(newValue);
-				
+
 			}catch(NumberFormatException e ){
 				new_double = 0;
 				this.fieldX.setText("0");
 			}
-			
+
 			this.albumc.moveCurrentImage(new_double, Double.parseDouble(this.fieldY.getText()));
-			
+
 		});
-		
+
 		this.fieldY.textProperty().addListener((observable, oldValue, newValue) -> {
 			double new_double;
 			try{
 				new_double = Double.parseDouble(newValue);
-				
+
 			}catch(NumberFormatException e ){
 				new_double = 0;
 				this.fieldY.setText("0");
 			}
-			
+
 			this.albumc.moveCurrentImage(Double.parseDouble(this.fieldX.getText()), new_double);
-			
+
 		});
-		
+
 		this.fieldborderWidth.textProperty().addListener((observable, oldValue, newValue) -> {
 			double new_double;
 			try{
 				new_double = Double.parseDouble(newValue);
-				
+
 			}catch(NumberFormatException e ){
 				new_double = 0;
 				this.fieldborderWidth.setText("0");
 			}
 			if(new_double<0)
-			{ 
+			{
 				new_double=0;
 				this.fieldborderWidth.setText("0");
 			}
-			
+
 			this.albumc.changeBordureWidth(new_double);
-			 
+
 		});
-		
+
 		this.fieldLegende.textProperty().addListener((observable, oldValue, newValue) -> {
 			albumc.changeLegende(newValue);
 		});
-		
+
 		this.borderColorPicker.setOnAction(e -> albumc.changeBordureColor(borderColorPicker.getValue()));
 
 		this.setCurrentPageImage(null);
@@ -223,7 +222,7 @@ public class WindowControler {
 	 * Ajoute une nouvelle Picture dans la page a partir de l'ImageView qui est en focus dans le panneau de droite
 	 */
 	private void addCurrentViewerImageToPage() {
-		this.albumc.addPictureToPage(datac.getCurrentViewerImage(), imagepane.getWidth() / 2, imagepane.getHeight() / 2, imagepane);
+		this.albumc.addPictureToPage(datac.getCurrentViewerImage(), 1, 1, imagepane);
 	}
 
 	/**
@@ -232,9 +231,9 @@ public class WindowControler {
 	public void setCurrentPageImage(ImageView source) {
 		albumc.setCurrentImage(source);
 		// TODO: Changer toutes les prop du pane de gauche en conséquence
-		
 
-		
+
+
 		if(source!=null)
 		{
 			this.scaleDimension.setDisable(false);
@@ -279,12 +278,12 @@ public class WindowControler {
 	 */
 	public void setscalePaneValue(double scale) {
 		this.scaleDimension.adjustValue(scale);
-		
+
 	}
 
 	public void setBorderWidth(int i) {
 		this.fieldborderWidth.setText(""+i);
-		
+
 	}
 
 	public void setColorPicker(Color borderColor) {
@@ -293,7 +292,7 @@ public class WindowControler {
 
 	public void setfieldLegende(String legende) {
 		this.fieldLegende.setText(legende);
-		
+
 	}
 
 
