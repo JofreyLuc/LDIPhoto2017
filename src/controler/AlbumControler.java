@@ -64,6 +64,10 @@ public class AlbumControler {
 
 	}
 
+	public ArrayList<Page> getPages(){
+		return album.getPages();
+	}
+
 	public void newAlbum(){
 		album = new Album();
 		current_page=1;

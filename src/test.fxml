@@ -93,7 +93,7 @@
             </Accordion>
          </left>
          <right>
-            <TabPane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+            <TabPane fx:id="tabPaneViewer" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
               <tabs>
                 <Tab closable="false" text="Images">
                      <content>
@@ -113,7 +113,7 @@
                         </SplitPane>
                      </content>
                 </Tab>
-                <Tab closable="false" text="Pages">
+                <Tab fx:id="tabPages" closable="false" text="Pages">
                      <content>
                         <ScrollPane vbarPolicy="ALWAYS">
                            <content>

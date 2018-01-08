@@ -9,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -25,6 +27,9 @@ public class WindowControler {
 
 	@FXML // Correspond au Pane contenant les images au centre de la page
 	private Pane imagepane;
+
+	@FXML
+	private Tab tabPages;
 
 	@FXML // FlowPane contenant la liste d'images à droite de la page
 	private FlowPane flowPaneImages;
@@ -92,7 +97,6 @@ public class WindowControler {
 		};
 		datac.addPicturesToViewer(flowPaneImages, boutonAjoutImagePage, ap);
 
-		datac.refreshPagesView(flowPanePages, albumc.album.getPage(1));
 		/***TEST***/
 
 		//TODO : Rafraichissement du viewer des pages : on focus PagesTab ?
@@ -106,7 +110,7 @@ public class WindowControler {
 		});
 
 		menuQuitter.setOnAction((event) -> {
-			//quit()
+			System.exit(0);
 		});
 
 		menuNouvellePage.setOnAction((event) -> {
@@ -118,6 +122,9 @@ public class WindowControler {
 		});
 
 
+		tabPages.setOnSelectionChanged((event) -> {
+			datac.refreshPagesView(flowPanePages, albumc.getPages());
+		});
 
 		// Event sur pression du scaleDimension
 
