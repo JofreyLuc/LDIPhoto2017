@@ -68,12 +68,15 @@ public class WindowControler {
 	// Controleurs
 	private AlbumControler albumc;
 	private DataViewerController datac;
+	private MenuController menuc;
 
-	public WindowControler(AlbumControler ac, DataViewerController dc){
+	public WindowControler(AlbumControler ac, DataViewerController dc, MenuController mc){
 		albumc = ac;
 		albumc.setWindowControler(this);
 		datac = dc;
 		datac.setWindowControler(this);
+		menuc = mc;
+		menuc.setWindowControler(this);
 	}
 
 	@FXML
@@ -84,23 +87,8 @@ public class WindowControler {
 
 		Picture[] ap = {
 		(new Picture(new File("./resources/cat1.jpg").toURI().toString())),
-		(new Picture(new File("./resources/img.jpg").toURI().toString())),
+		(new Picture(new File("./resources/wiggle.gif").toURI().toString())),
 		(new Picture(new File("./resources/cat2.jpg").toURI().toString())),
-		(new Picture(new File("./resources/img.jpg").toURI().toString())),
-		(new Picture(new File("./resources/img.jpg").toURI().toString())),
-		(new Picture(new File("./resources/cat5.jpg").toURI().toString())),
-		(new Picture(new File("./resources/img.jpg").toURI().toString())),
-		(new Picture(new File("./resources/cat1.jpg").toURI().toString())),
-		(new Picture(new File("./resources/img.jpg").toURI().toString())),
-		(new Picture(new File("./resources/cat1.jpg").toURI().toString())),
-		(new Picture(new File("./resources/img.jpg").toURI().toString())),
-		(new Picture(new File("./resources/cat2.jpg").toURI().toString())),
-		(new Picture(new File("./resources/img.jpg").toURI().toString())),
-		(new Picture(new File("./resources/img.jpg").toURI().toString())),
-		(new Picture(new File("./resources/cat5.jpg").toURI().toString())),
-		(new Picture(new File("./resources/img.jpg").toURI().toString())),
-		(new Picture(new File("./resources/cat1.jpg").toURI().toString())),
-		(new Picture(new File("./resources/img.jpg").toURI().toString()))
 		};
 		datac.addPicturesToViewer(flowPaneImages, boutonAjoutImagePage, ap);
 
@@ -113,9 +101,8 @@ public class WindowControler {
 		});
 		boutonAjoutImagePage.setDisable(true);
 
-		//TODO : Gestion des menus (a mettre dans une classe separee ?)
 		menuNouvelAlbum.setOnAction((event) -> {
-			//generateNewAlbum()
+			generateNewAlbum();
 		});
 
 		menuQuitter.setOnAction((event) -> {
@@ -196,8 +183,7 @@ public class WindowControler {
 	}
 
 	private void importPictures(){
-		System.out.println("import images");
-		//TODO : filechooser etc.
+		addPicturesToViewer(menuc.selectImages(imagepane.getScene().getWindow()));
 	}
 
 
@@ -219,6 +205,11 @@ public class WindowControler {
 	 */
 	private void addCurrentViewerImageToPage() {
 		this.albumc.addPictureToPage(datac.getCurrentViewerImage(), 1, 1, imagepane);
+	}
+
+	private void generateNewAlbum(){
+		albumc.newAlbum();
+		albumc.setPageOnPane(imagepane, 1);
 	}
 
 	/**

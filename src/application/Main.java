@@ -2,6 +2,7 @@ package application;
 
 import controler.AlbumControler;
 import controler.DataViewerController;
+import controler.MenuController;
 import controler.WindowControler;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -16,9 +17,10 @@ public class Main extends Application {
 		try {
 			AlbumControler albumc = new AlbumControler();
 			DataViewerController datac = new DataViewerController();
+			MenuController menuc = new MenuController();
 
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/test.fxml"));
-			loader.setController(new WindowControler(albumc, datac));
+			loader.setController(new WindowControler(albumc, datac, menuc));
 			VBox root = loader.load();
 
 			Scene scene = new Scene(root,1024,768);

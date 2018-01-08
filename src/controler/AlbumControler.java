@@ -64,19 +64,26 @@ public class AlbumControler {
 
 	}
 
+	public void newAlbum(){
+		album = new Album();
+		current_page=1;
+		images.clear();
+		current_image = null;
+		windowControler.setCurrentPageImage(null);
+	}
+
 /**
  * Change la page selectionnée dans le panneau central
  */
 	public void setPageOnPane(Pane p, int num_page)
 	{
+		p.getChildren().clear();
 		current_page=num_page;
 
 		Page pg = album.getPage(num_page);
 		for(Picture pi : pg.getPictures())
 		{
 			this.addPictureToPane(pi, p);
-
-
 		}
 	}
 
