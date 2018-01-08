@@ -129,8 +129,6 @@ public class AlbumControler {
 		album.getPage(current_page).addPicture(p);
 		addPictureToPane(p, imagepane);
 
-		// On modifie le modele en conséquence
-		images.add(iv);
 	}
 
 	public void onChangeCurrentImage(ImageView source) {
@@ -215,7 +213,7 @@ public class AlbumControler {
 		//TODO: Faire une methode pour retourner ca, j'ia l'impression de l'avoir cc souvent ?
 		int place_image = this.images.indexOf(img);
 		Picture pi = this.album.getPage(this.current_page).getPictures().get(place_image);
-		if(pi.getBorderWidth()>1 && pi.getBorderColor()!=null)
+		if(pi.getBorderWidth()>=1 && pi.getBorderColor()!=null)
 			img.getParent().setStyle("-fx-border-color: rgb("+pi.getBorderColor().getRed()*255+","+pi.getBorderColor().getGreen()*255+","+pi.getBorderColor().getBlue()*255+");"+ "-fx-border-width: "+pi.getBorderWidth()+";");
 		else
 			img.getParent().setStyle("");
