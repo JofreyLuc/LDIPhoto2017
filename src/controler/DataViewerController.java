@@ -1,58 +1,59 @@
 package controler;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import controler.events.OnClickImageViewerRight;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import model.Page;
 import model.Picture;
 
 /**
- * Pseudo-controleur de la zone de droite affichant la liste des images importees et la liste des pages dans deux onglets.
- * @author Jofrey
+ * Controleur secondaire de la zone de droite affichant la liste des images importées et la liste des pages dans deux onglets.
+ * @author Vincent et Jofrey
  */
 
 public class DataViewerController {
 
 	/**
-	 *  Taille maximale des thumbnails des images dans la liste
+	 * Taille maximale des thumbnails des images dans la liste
 	 */
-	//TODO: A bouger ?
 	private final static int PICTURE_SIZE = 100;
 
+	/**
+	 * Image actuellement sélectionnée dans la liste des images
+	 */
 	private ImageView currentViewerImage;
 
+	/**
+	 * Contrôleur principal
+	 */
 	private WindowControler windowc;
+
 
 	public DataViewerController() {
 		currentViewerImage = null;
 	}
 
+	/**
+	 * Setter du contrôleur principal
+	 * @param w - Contrôleur de la fenêtre
+	 */
 	public void setWindowControler(WindowControler w) {
 		windowc = w;
 	}
 
 	/**
-	 * Reduit la largeur et la hauteur d'une image, proportionnellement, jusqu'à ce qu'aucune des deux valeurs ne dépasse PICTURE_SIZE
-	 * @param iv - ImageView a reduire
+	 * Réduit la largeur et la hauteur d'une image, proportionnellement, jusqu'à ce qu'aucune des deux valeurs ne dépasse PICTURE_SIZE
+	 * @param iv - ImageView à réduire
 	 */
 	private void resizeToThumbnail(ImageView iv){
 		double width = iv.getImage().getWidth(), height = iv.getImage().getHeight();
@@ -64,12 +65,13 @@ public class DataViewerController {
 	/**
 	 * Ajoute un ensemble d'images dans l'onglet des images
 	 * @param fp - Le panneau de l'onglet images
-	 * @param pictures - L'ensemble d'images a ajouter
+	 * @param pictures - L'ensemble d'images à ajouter
 	 */
 	public void addPicturesToViewer(FlowPane fp, Button b, Picture... pictures){
 		for (Picture p : pictures) {
 			ImageView newPic = new ImageView(p.getImage());
 
+			// Listener de clic pour la sélection
 			newPic.setOnMouseClicked(new OnClickImageViewerRight(newPic, this));
 
 			this.resizeToThumbnail(newPic);
@@ -82,17 +84,27 @@ public class DataViewerController {
 		}
 	}
 
+	/**
+	 * Getter de l'image actuellement sélectionnée
+	 * @return ImageView
+	 */
 	public ImageView getCurrentViewerImage(){
 		return currentViewerImage;
 	}
 
+	/**
+	 * Met à jour l'image sélectionnée et l'image précédemment sélectionnée
+	 * @param iv - Nouvelle ImageView sélectionnée
+	 */
 	public void setCurrentViewerImage(ImageView iv) {
 		if (this.currentViewerImage != null) {
+			//Déselection de l'ancienne image
 			currentViewerImage.getParent().setStyle("-fx-border-color: gray; -fx-border-width: 0;");
 	    	windowc.setAddButtonActive(false);
 		}
 		this.currentViewerImage = iv;
 		if (this.currentViewerImage != null) {
+			//Sélection de la nouvelle image
 			currentViewerImage.getParent().setStyle("-fx-border-color: gray; -fx-border-width: 3;");
 			windowc.setAddButtonActive(true);
 		}
@@ -102,7 +114,7 @@ public class DataViewerController {
 	 * Retire une image de l'onglet des images
 	 * @param fp - Le panneau de l'onglet images
 	 * @param toRemove - Picture à retirer
-	 * @return true si l'operation a reussi
+	 * @return true si l'opération a reussi
 	 */
 	public boolean removePictureFromViewer(FlowPane fp, Picture toRemove){
 		return fp.getChildren().remove(toRemove);
@@ -111,7 +123,7 @@ public class DataViewerController {
 	/**
 	 * Supprime la liste des pages et en affiche une nouvelle
 	 * @param fp - Le panneau de l'onglet images
-	 * @param pages - Le nouvel ensemble de pages a afficher
+	 * @param pages - Le nouvel ensemble de pages à afficher
 	 */
 	public void refreshPagesView(FlowPane fp, ArrayList<Page> pages) {
 		fp.getChildren().clear();
@@ -120,7 +132,7 @@ public class DataViewerController {
 			pNumber++;
 
 			Pane pagePane = new Pane();
-			Scene s = new Scene(pagePane); // Necessaire pour que le css soit applique
+			Scene s = new Scene(pagePane); // Nécessaire pour que le css soit appliqué
 			pagePane.setPrefSize(450, 600);
 			pagePane.setStyle("-fx-background-color: white;");
 
@@ -146,8 +158,8 @@ public class DataViewerController {
 				box.getChildren().add(l);
 				box.setAlignment(Pos.CENTER);
 				l.setStyle("-fx-text-alignment: center;");
-
 			}
+
 			// Snapshot de la page et ajout
 			WritableImage snapshot = pagePane.snapshot(new SnapshotParameters(), null);
 			ImageView pagePreview = new ImageView(snapshot);
