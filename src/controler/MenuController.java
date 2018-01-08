@@ -24,7 +24,7 @@ public class MenuController {
 		fc.setTitle("Importer des images");
 		fc.setInitialDirectory(new File(System.getProperty("user.home")));
 		fc.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Images", "*.JPG", "*.PNG", "*.JPEG", "*.PNG", "*.GIF", "*.BMP")
+                new FileChooser.ExtensionFilter("Images", "*.JPG", "*.PNG", "*.JPEG", "*.PNG", "*.BMP")
             );
 		List<File> list = fc.showOpenMultipleDialog(owner);
 		if (list != null) {

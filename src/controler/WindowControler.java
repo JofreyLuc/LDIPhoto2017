@@ -101,7 +101,6 @@ public class WindowControler {
 
 		Picture[] ap = {
 		(new Picture(new File("./resources/cat1.jpg").toURI().toString())),
-		(new Picture(new File("./resources/wiggle.gif").toURI().toString())),
 		(new Picture(new File("./resources/cat2.jpg").toURI().toString())),
 		};
 		datac.addPicturesToViewer(flowPaneImages, boutonAjoutImagePage, ap);
@@ -262,6 +261,7 @@ public class WindowControler {
 	private void generateNewAlbum(){
 		albumc.newAlbum();
 		albumc.setPageOnPane(imagepane, 1);
+		refreshNavButtonsState();
 	}
 
 	/**
