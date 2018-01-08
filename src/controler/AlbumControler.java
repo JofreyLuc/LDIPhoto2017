@@ -291,6 +291,12 @@ public class AlbumControler {
 			Label l = (Label) parent.getChildren().get(1);
 			l.setText(pi.getLegende());
 		}
-		this.windowControler.setfieldLegende(pi.getLegende());
+		
+		if(pi.getLegende().equals(""))
+		{
+			parent.getChildren().remove(1);
+		}
+		else
+			this.windowControler.setfieldLegende(pi.getLegende());
 	}
 }
