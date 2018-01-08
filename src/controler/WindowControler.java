@@ -209,7 +209,10 @@ public class WindowControler {
 	}
 
 	private void importPictures(){
-		addPicturesToViewer(menuc.selectImages(imagepane.getScene().getWindow()));
+		Picture[] p = menuc.selectImages(imagepane.getScene().getWindow());
+		if (p!=null){
+			addPicturesToViewer(p);
+		}
 	}
 
 	private void addNewPage() {

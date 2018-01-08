@@ -2,6 +2,7 @@ package controler;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
@@ -25,12 +26,16 @@ public class MenuController {
 		fc.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Images", "*.JPG", "*.PNG", "*.JPEG", "*.PNG", "*.GIF", "*.BMP")
             );
-		ArrayList<File> imports = new ArrayList<>(fc.showOpenMultipleDialog(owner));
-		Picture[] pics = new Picture[imports.size()];
-		for (int i = 0; i < imports.size(); i++){
-			pics[i] = new Picture(imports.get(i).toURI().toString());
+		List<File> list = fc.showOpenMultipleDialog(owner);
+		if (list != null) {
+			ArrayList<File> imports = new ArrayList<>(list);
+			Picture[] pics = new Picture[imports.size()];
+			for (int i = 0; i < imports.size(); i++){
+				pics[i] = new Picture(imports.get(i).toURI().toString());
+			}
+			return pics;
 		}
-		return pics;
+		return null;
 	}
 
 }
