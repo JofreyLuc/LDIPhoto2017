@@ -134,13 +134,8 @@ public class WindowControler {
 
 
 		// Event sur pression du scaleDimension
-		scaleDimension.setOnMouseDragged(new EventHandler<MouseEvent>(){
-
-			@Override
-			public void handle(MouseEvent event) {
-				resizeImage();
-			}
-		});
+		scaleDimension.setOnMouseDragged((mouseEvent)->{resizeImage();});		
+		scaleDimension.setOnMouseClicked((mouseEvent) ->{resizeImage();});
 		
 		// Events sur changement des textFields
 		
